@@ -1,0 +1,22 @@
+{
+  "name": "botington",
+  "version": "1.0.0",
+  "description": "",
+  "main": "startup.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Richard Key <rich@busyrich.com>",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.5",
+    "mongodb": "^3.0.4",
+    "request": "^2.85.0",
+    "vue": "^2.5.16"
+  },
+  "devDependencies": {
+    "babel-preset-es2015-script": "^1.1.0",
+    "electron-prebuilt-compile": "^1.8.4"
+  }
+}

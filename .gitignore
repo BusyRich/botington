@@ -59,3 +59,6 @@ typings/
 
 # next.js build output
 .next
+
+#Needed for Richards local syncing
+__.compilerc

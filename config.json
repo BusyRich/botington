@@ -1,0 +1,10 @@
+{
+  "bot-username": "busybotty",
+  "bot-oauth": "oauth:ryqjlvzg4wngkfu2xkwiuqzgiebyxx",
+  "channels": ["busyrich"],
+  "data": {
+    "store-type": "mongo",
+    "connect-url": "mongodb://localhost:27017",
+    "db": "botty"
+  }
+}

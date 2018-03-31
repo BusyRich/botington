@@ -1,0 +1,7 @@
+{
+  "name":"simple-command",
+  "version": "1.0.0",
+  "main": "scommand.js",
+  "dependencies": ["member-points"],
+  "dev-mode": true
+}

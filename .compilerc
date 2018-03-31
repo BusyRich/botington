@@ -1,0 +1,11 @@
+{
+  "application/javascript": {
+    "ignore": ["lib/**", "plugins/**"],
+    "presets": [["env", {
+      "targets": {
+        "chrome": "60"
+      }
+    }]],
+    "sourceMaps": "inline"
+  }
+}

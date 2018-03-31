@@ -1,0 +1,3 @@
+announcements - Every X refreshes post something
+slot machine
+timer - Works off of refresh, can get # of secs left, emit event when done 
