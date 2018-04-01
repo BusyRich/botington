@@ -8,8 +8,13 @@ const path = require('path'),
 let win;
 const createWindow = () => {
 
+  console.log(path.join(__dirname, 'assets', 'icons', '64x64.png'));
   // Create the browser window.
-  const win = new BrowserWindow({width: 1024, height: 768}),
+  const win = new BrowserWindow({
+          width: 1024,
+          height: 768,
+          icon: path.join(__dirname, 'assets', 'icons', '64x64.png')
+        }),
         bot = Botington(config);
 
   win.bot = bot;
