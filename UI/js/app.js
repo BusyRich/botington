@@ -3,6 +3,12 @@ const eWindow = require('electron').remote.getCurrentWindow();
 window.bot = eWindow.bot;
 window.eBus = new Vue();
 
+import menu from './templates/menu.vue';
+Vue.component('side-menu', menu);
+
+import chat from './templates/chat.vue';
+Vue.component('chat-messages', chat);
+
 import chatterList from './templates/chatterList.vue';
 Vue.component('chatter-list', chatterList);
 

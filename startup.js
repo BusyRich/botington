@@ -9,7 +9,7 @@ let win;
 const createWindow = () => {
 
   // Create the browser window.
-  const win = new BrowserWindow({width: 800, height: 600}),
+  const win = new BrowserWindow({width: 1024, height: 768}),
         bot = Botington(config);
 
   win.bot = bot;

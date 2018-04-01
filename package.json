@@ -13,7 +13,8 @@
     "lodash": "^4.17.5",
     "mongodb": "^3.0.4",
     "request": "^2.85.0",
-    "vue": "^2.5.16"
+    "vue": "^2.5.16",
+    "vueify": "^9.4.1"
   },
   "devDependencies": {
     "babel-preset-es2015-script": "^1.1.0",

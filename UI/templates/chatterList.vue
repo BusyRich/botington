@@ -31,3 +31,22 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  #chatters {
+    width: 25%;
+    list-style: none;
+    padding: 5px 0;
+    border-left: 1px solid #eaeaea;
+    overflow-y: auto;
+
+    .chatter {
+      padding: 2px 10px;
+
+      [class*='fa-'] {
+        font-size: 0.75em;
+      }
+    }
+  }
+</style>
+
