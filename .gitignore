@@ -62,3 +62,5 @@ typings/
 
 #Needed for Richards local syncing
 __.compilerc
+
+.DS_Store
