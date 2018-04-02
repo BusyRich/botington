@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "points.js",
   "dev-mode": true,
+  "enabled": true,
   "default-settings": {
     "points-name": "points",
     "points-per-refresh": 10
