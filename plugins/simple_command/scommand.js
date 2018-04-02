@@ -8,7 +8,7 @@ module.exports = plugin => {
     if(commands[meta.command]) {
       let c = commands[meta.command];
       if(!c.cost || c.cost === 0) {
-        plugin.bot.send(c.text);
+        this.bot.send(c.text);
       } else {
         purchase(meta.username, c.cost, success => {
           if(success) {
@@ -26,9 +26,9 @@ module.exports = plugin => {
 
     for(let c = 0; c < data.length; c++) {
       commands[data[c].name] = data[c];
-      plugin.bot.registerCommand(data[c].name, handleCommand);
+      this.registerCommand(data[c].name, handleCommand);
     }
   });
 
-  return {};
+  return plugin.bind(this, {});
 };

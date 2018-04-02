@@ -3,14 +3,18 @@ module.exports = plugin => {
 
   //Adds points to all current chatters every refresh (60s)
   plugin.bot.on('refresh', () => {
-    plugin.bot.updateAllChatters({
+    if(!this.enabled) {
+      return;
+    }
+
+    this.bot.updateAllChatters({
       $inc: {points:this.settings['points-per-refresh']}
     },
     (err) => console.log(err || 'Member Points Updated'));
   });
 
   //Register the "check points" command
-  plugin.bot.registerCommand(this.pname, (meta) => {
+  plugin.registerCommand(this.pname, (meta) => {
     this.db.getMember(meta.username, (error, member) => {
       if(error) {
         this.event.emit('error', error);
