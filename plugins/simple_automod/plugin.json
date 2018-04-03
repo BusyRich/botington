@@ -9,11 +9,13 @@
   "enabled": true,
   "messages": {
     "restricted": "@{username} Please do not use restricted words.",
+    "urlRestricted": "@{username} No posting URL's without permission.",
     "timeout": "/timeout @{username} 1"
   },
   "default-settings": {
     "restricted-words": [
       "test"
-    ]
+    ],
+    "remove-urls": true
   }
 }
