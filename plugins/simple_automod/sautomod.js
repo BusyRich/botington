@@ -3,6 +3,7 @@ module.exports = plugin => {
     initialize() {
       this.restrictedWords = plugin.settings['restricted-words'];
       this.disableURLPosting = plugin.settings['remove-urls'];
+
       this.bot.on( 'message', data => {
         var words = data.message.split( " " );
         for ( let i = 0; i < words.length; i++ ) {
@@ -10,7 +11,7 @@ module.exports = plugin => {
             this.sendm( 'restricted', data );
             this.sendm( 'timeout', data );
             return i;
-          } else if ( validURL( words[i] && this.disableURLPosting ) ) {
+          } else if ( validURL( words[i] ) && this.disableURLPosting ) {
             this.sendm( 'urlRestricted', data );
             this.sendm( 'timeout', data );
           }
