@@ -1,6 +1,6 @@
 {
   "name": "simple-automod",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "sautomod.js",
   "mod-required": true,
   "mod-reason": "The simple-automod plugin needs mod in order to timeout users, and repeat messages more frequently than the standard.",
