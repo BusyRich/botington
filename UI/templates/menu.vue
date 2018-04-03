@@ -4,10 +4,10 @@
       <li>
         <img id="botingtonLogo" src="img/logo.svg"/>
       </li>
-      <li v-for="link in links" :key="link.name">
-        <a v-on:click="switchTab(link.name)">
-          <span class="icon"><i :class="'fas fa-' + link.icon"></i></span>
-          <span class="label">{{ link.label }}</span>
+      <li v-for="tab in tabs" :key="tab.name">
+        <a :onclick="'switchTab(\'' + tab.name + '\')'">
+          <span class="icon"><i :class="'fas fa-' + tab.icon"></i></span>
+          <span class="label">{{ tab.label }}</span>
         </a>
       </li>
     </ul>
@@ -20,27 +20,15 @@ export default {
     for(let t = 0; t < tabs.length; t++) {
       this.addTab(tabs[t]);
     }
-
-    this.content = $('#content');
   },
   data() {
     return {
-      links: {},
-      tabs: {},
-      content: null //will be set later
+      tabs: {}
     };
   },
   methods: {
     addTab(tab) {
-      this.links[tab.name] = tab;
-      this.tabs[tab.name] = $(tab.element);
-    },
-    switchTab(tabName) {
-      let scrollTo = $(this.links[tabName].element).offset().top;
-
-      if(scrollTo != 0) {
-        $('#content').scrollTop(scrollTo);
-      }
+      this.tabs[tab.name] = tab;
     }
   }
 }

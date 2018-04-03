@@ -14,8 +14,26 @@ window.tabs = [{
   element: '#plugins'
 }];
 
+window.switchTab = function(tabName) {
+  let scrollTo = null;
+  
+  for(let t = 0; t < tabs.length; t++) {
+    if(tabs[t].name === tabName) {
+      scrollTo = $(tabs[t].element).offset().top;
+      break;
+    }
+  }
+
+  if(scrollTo && scrollTo != 0) {
+    $('#content').scrollTop(scrollTo);
+  }
+};
+
 import menu from './templates/menu.vue';
 Vue.component('side-menu', menu);
+
+import pluginList from './templates/plugins.vue';
+Vue.component('plugins', pluginList);
 
 import chat from './templates/chat.vue';
 Vue.component('chat-messages', chat);
@@ -29,14 +47,19 @@ const onNames = data => eBus.$emit('names', data),
       onJoin = data => eBus.$emit('join', data),
       onMessage = data => eBus.$emit('message', data);
 
-$(document).ready(() => {
+const onReady = () => {
+  eBus.$emit('ready');
+
   window.vm = new Vue({
     el: '#app'
   });
+};
 
+$(document).ready(() => {
   bot.on('names', onNames);
   bot.on('join', onJoin);
   bot.on('message', onMessage);
+  bot.on('ready', onReady);
 
   if(!bot.initialized) {
     bot.initialize();
@@ -50,4 +73,5 @@ window.onbeforeunload = () => {
   bot.off('names', onNames);
   bot.off('join', onJoin);
   bot.off('message', onMessage);
+  bot.off('ready', onReady);
 };
