@@ -2,6 +2,17 @@ const eWindow = require('electron').remote.getCurrentWindow();
 
 window.bot = eWindow.bot;
 window.eBus = new Vue();
+window.tabs = [{
+  name: 'chat',
+  icon: 'comment-alt',
+  label: 'Chat Monitor',
+  element: '#monitor',
+},{
+  name: 'plugins',
+  icon: 'plug',
+  label: 'Plugins',
+  element: '#plugins'
+}];
 
 import menu from './templates/menu.vue';
 Vue.component('side-menu', menu);

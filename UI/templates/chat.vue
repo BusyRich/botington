@@ -6,13 +6,16 @@
         <i v-if="message.meta.subscriber" class="far fa-credit-card"></i>
         <i v-if="message.meta.badges && message.meta.badges.broadcaster" class="fas fa-video"></i>
         <i v-if="message.meta.turbo" class="fas fa-battery-full"></i>
-        <span :style="{color:message.meta.color}">{{ message.username }}</span>: {{ message.message }}
+        <span :style="{color:message.meta.color}">{{ message.username }}</span>:&nbsp;
+        <span v-html="$options.filters.atUsername(message.message)"></span>
       </p>
     </div>
   </div>
 </template>
 
 <script>
+const atFilter = /(@)([a-z0-9_]{4,25})/gi;
+
 export default {
   created() {
     eBus.$on('message', data => this.addMessage(data));
@@ -36,7 +39,7 @@ export default {
           type: 'message',
           username: 'busyrich',
           channel: 'busyrich',
-          message: `This is message ${id} / ${this.count + 1}`,
+          message: `This <b>is</b> @notarealuser message ${id} / ${this.count + 1}`,
           meta: {
             badges: { 
               broadcaster: '1', turbo: '1'
@@ -55,13 +58,19 @@ export default {
       container.scrollTop = container.scrollHeight;
     }
   },
+  filters: {
+    atUsername(message) {
+      return message.replace(atFilter, 
+        '<span class="at-username" data-user="$2">$1$2</span>');
+    }
+  },
   updated() {
     this.scrollToBottom();
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   #chatWrapper {
     width: 75%;
     overflow: auto;
@@ -80,6 +89,11 @@ export default {
         margin: 6px 0;
         border-left: 2px solid #eaeaea;
         z-index: 0;
+
+        .at-username {
+          padding: 3px 5px;
+          background-color: #eaeaea;
+        }
       }
     }
   }

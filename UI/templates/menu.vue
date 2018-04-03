@@ -4,10 +4,10 @@
       <li>
         <img id="botingtonLogo" src="img/logo.svg"/>
       </li>
-      <li v-for="item in items" :key="item.name">
-        <a href="#">
-          <span class="icon"><i :class="'fas fa-' + item.icon"></i></span>
-          <span class="label">{{ item.label }}</span>
+      <li v-for="link in links" :key="link.name">
+        <a v-on:click="switchTab(link.name)">
+          <span class="icon"><i :class="'fas fa-' + link.icon"></i></span>
+          <span class="label">{{ link.label }}</span>
         </a>
       </li>
     </ul>
@@ -16,18 +16,32 @@
 
 <script>
 export default {
+  created() {
+    for(let t = 0; t < tabs.length; t++) {
+      this.addTab(tabs[t]);
+    }
+
+    this.content = $('#content');
+  },
   data() {
     return {
-      items: [{
-        name: 'chat',
-        icon: 'comment-alt',
-        label: 'Chat Monitor'
-      },{
-        name: 'plugins',
-        icon: 'plug',
-        label: 'Plugins'
-      }]
+      links: {},
+      tabs: {},
+      content: null //will be set later
     };
+  },
+  methods: {
+    addTab(tab) {
+      this.links[tab.name] = tab;
+      this.tabs[tab.name] = $(tab.element);
+    },
+    switchTab(tabName) {
+      let scrollTo = $(this.links[tabName].element).offset().top;
+
+      if(scrollTo != 0) {
+        $('#content').scrollTop(scrollTo);
+      }
+    }
   }
 }
 </script>
@@ -58,6 +72,7 @@ export default {
         font-size: 24px;
         color: inherit;
         text-decoration: none;
+        cursor: pointer;
         
         span {
           position: absolute;
