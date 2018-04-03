@@ -1,0 +1,19 @@
+{
+  "name": "simple-automod",
+  "version": "1.0.0",
+  "main": "sautomod.js",
+  "mod-required": true,
+  "mod-reason": "The simple-automod plugin needs mod in order to timeout users, and repeat messages more frequently than the standard.",
+  "dependencies": [],
+  "dev-mode": true,
+  "enabled": true,
+  "messages": {
+    "restricted": "@{username} Please do not use restricted words.",
+    "timeout": "/timeout @{username} 1"
+  },
+  "default-settings": {
+    "restricted-words": [
+      "test"
+    ]
+  }
+}
