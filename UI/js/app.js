@@ -63,6 +63,8 @@ $(document).ready(() => {
 
   if(!bot.initialized) {
     bot.initialize();
+  } else {
+    onReady();
   }
 });
 
