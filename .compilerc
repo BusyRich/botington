@@ -1,6 +1,6 @@
 {
   "application/javascript": {
-    "ignore": ["lib/**", "plugins/**"],
+    "ignore": ["lib/**", "plugins/**/!(ui)"],
     "presets": [["env", {
       "targets": {
         "chrome": "60"

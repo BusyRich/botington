@@ -1,8 +1,14 @@
 {
   "name":"simple-command",
   "version": "1.0.0",
+  "icon": "fas fa-terminal fa-xs",
   "main": "scommand.js",
   "dependencies": ["member-points"],
   "dev-mode": true,
-  "enabled": true
+  "enabled": true,
+  "ui": {
+    "component": "ui/commands.vue",
+    "container": "commands",
+    "tag": "commands"
+  }
 }

@@ -1,5 +1,4 @@
-const eWindow = require('electron').remote.getCurrentWindow();
-
+window.eWindow = require('electron').remote.getCurrentWindow();
 window.bot = eWindow.bot;
 window.eBus = new Vue();
 window.tabs = [{
@@ -16,19 +15,29 @@ window.tabs = [{
 
 window.switchTab = function(tabName) {
   let scrollTo = null;
-  
-  for(let t = 0; t < tabs.length; t++) {
-    if(tabs[t].name === tabName) {
-      scrollTo = $(tabs[t].element).offset().top;
-      break;
+
+  //tab names can be either id selectors or
+  //and actual name of the tab object to reference
+  //This allows use to use this for the side menu and
+  //just raw HTML elements we want to scroll to
+  if(tabName.indexOf('#') === 0) {
+    scrollTo = $(tabName).offset();
+  } else {
+    for(let t = 0; t < tabs.length; t++) {
+      if(tabs[t].name === tabName) {
+        scrollTo = $(tabs[t].element).offset();
+        break;
+      }
     }
   }
 
-  if(scrollTo && scrollTo != 0) {
-    $('#content').scrollTop(scrollTo);
+  if(scrollTo && scrollTo.top != 0) {
+    let content = $('#content');
+    content.animateScroll(content.scrollTop() + scrollTo.top, 200);
   }
 };
 
+//These are the main Vue components used in the UI
 import menu from './templates/menu.vue';
 Vue.component('side-menu', menu);
 
@@ -48,7 +57,18 @@ const onNames = data => eBus.$emit('names', data),
       onMessage = data => eBus.$emit('message', data);
 
 const onReady = () => {
-  eBus.$emit('ready');
+  //Loads in the plugin Vue components
+  for(let p in bot.plugins) {
+    let pluginUI = bot.plugins[p].config.ui;
+
+    if(pluginUI) {
+      if(pluginUI.component && pluginUI.tag) {
+        //We have to add the tag used by the vue component
+        $('#content').append('<' + pluginUI.tag +'/>');
+        Vue.component(pluginUI.tag, require(pluginUI.component));
+      }
+    }
+  }
 
   window.vm = new Vue({
     el: '#app'

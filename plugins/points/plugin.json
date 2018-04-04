@@ -1,5 +1,5 @@
 {
-  "name":"member-points",
+  "name": "member-points",
   "version": "1.0.0",
   "main": "points.js",
   "dev-mode": true,
