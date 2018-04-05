@@ -33,6 +33,9 @@ html, body {
   left: 0;
   width: 100%;
   margin-left: 48px;
+  //Needed so the content fits in the bounds
+  //with the margin set.
+  padding-right: 48px;
   overflow: hidden;
 
   > div {
