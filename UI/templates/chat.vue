@@ -7,7 +7,7 @@
         <i v-if="message.meta.badges && message.meta.badges.broadcaster" class="fas fa-video"></i>
         <i v-if="message.meta.turbo" class="fas fa-battery-full"></i>
         <span :style="{color:message.meta.color}">{{ message.username }}</span>:&nbsp;
-        <span v-html="$options.filters.atUsername(message.message)"></span>
+        <span v-html="message.message"></span>
       </p>
     </div>
   </div>
@@ -15,6 +15,10 @@
 
 <script>
 const atFilter = /(@)([a-z0-9_]{4,25})/gi;
+
+const sortEmotes = function(a, b) {
+  return a.start - b.start;
+};
 
 export default {
   created() {
@@ -28,6 +32,31 @@ export default {
   },
   methods: {
     addMessage(data) {
+      let message = "";
+      if(data.meta.emotes) {
+        let m = data.message, 
+            motes = data.meta.emotes,
+            em = 0,
+            c = 0;
+        
+        do {
+          if(motes[em] && c == motes[em].start) {
+            message += `<img src="http://static-cdn.jtvnw.net/emoticons/v1/${motes[em].id}/1.0"/>`;
+            c = motes[em].end + 1;
+            em++;
+          } else {
+            message += m[c];
+            c++;
+          }
+        } while(c < m.length);
+      } else {
+        message = data.message;
+      }
+
+      message = message.replace(atFilter, 
+        '<span class="at-username" data-user="$2">$1$2</span>');
+
+      data.message = message;
       this.messages.push(data);
       this.count++;
     },
@@ -56,12 +85,6 @@ export default {
     scrollToBottom() {
       let container = this.$el;
       container.scrollTop = container.scrollHeight;
-    }
-  },
-  filters: {
-    atUsername(message) {
-      return message.replace(atFilter, 
-        '<span class="at-username" data-user="$2">$1$2</span>');
     }
   },
   updated() {
