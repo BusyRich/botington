@@ -5,10 +5,10 @@
 </template>
 
 <script>
-export default {
-  data: {
-    something: 'dude'
-  }
+module.exports = {
+  
 }
 </script>
+
+
 

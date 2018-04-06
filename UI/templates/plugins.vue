@@ -19,7 +19,7 @@
 </template>
 
 <script>
-export default {
+module.exports = {
   created() {
     for(let p in bot.plugins) {
       this.updatePlugin(bot.plugins[p]);

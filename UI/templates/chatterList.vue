@@ -8,7 +8,7 @@
 </template>
 
 <script>
-export default {
+module.exports = {
   created() {
     if(bot.initialized) {
       bot.chatters.forEach(username => this.addChatter(username));
