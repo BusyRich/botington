@@ -9,10 +9,6 @@ module.exports = plugin => {
       this.progressiveTimeoutAmount = plugin.settings['progressive-timeout-length'];
       this.progressiveTimeoutThreshold = plugin.settings['progressive-timeout-threshold'];
 
-      this.bot.updateAllChatters( {
-        automodStrikes: 0
-      },
-        ( err ) => console.log( err || 'Automod Strikes reset' ) );
 
       this.bot.on( 'message', data => {
         if ( !this.enabled ) {
