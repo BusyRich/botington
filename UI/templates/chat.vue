@@ -20,7 +20,7 @@ const sortEmotes = function(a, b) {
   return a.start - b.start;
 };
 
-export default {
+module.exports = {
   created() {
     eBus.$on('message', data => this.addMessage(data));
   },

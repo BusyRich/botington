@@ -15,7 +15,7 @@
 </template>
 
 <script>
-export default {
+module.exports = {
   created() {
     for(let t = 0; t < tabs.length; t++) {
       this.addTab(tabs[t]);
