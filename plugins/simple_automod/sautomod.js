@@ -9,6 +9,15 @@ module.exports = plugin => {
       this.progressiveTimeoutAmount = plugin.settings['progressive-timeout-length'];
       this.progressiveTimeoutThreshold = plugin.settings['progressive-timeout-threshold'];
 
+      //console.log( plugin );
+
+      // this.db.updateMany(
+      //   'members',
+      //   { automodStrikes: { $gt: 0 } },
+      //   'automodStrikes',
+      //   { $set: { automodStrikes: 0 } },
+      //   ( err ) => console.log( error || 'Automod Flags Reset' )
+      // );
 
       this.bot.on( 'message', data => {
         if ( !this.enabled ) {
