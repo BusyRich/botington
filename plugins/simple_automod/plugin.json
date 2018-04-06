@@ -1,16 +1,18 @@
 {
   "name": "simple-automod",
   "version": "1.0.1",
+  "icon": "fas fa-gavel",
   "main": "sautomod.js",
   "mod-required": true,
   "mod-reason": "The simple-automod plugin needs mod in order to timeout users, and repeat messages more frequently than the standard.",
   "dependencies": [],
-  "dev-mode": true,
+  "dev-mode": false,
   "enabled": true,
   "messages": {
-    "restricted": "@{username} Please do not use restricted words.",
-    "urlRestricted": "@{username} No posting URL's without permission.",
-    "timeout": "/timeout @{username} 1"
+    "restricted": "@{username} Please do not use restricted words, you have had {count} automod warnings!",
+    "urlRestricted": "@{username} No posting URL's without permission, you have had {count} automod warnings!",
+    "timeout": "/timeout @{username} 1",
+    "progressive-timeout": "/timeout @{username} {length}"
   },
   "default-settings": {
     "restricted-words": [
@@ -88,6 +90,9 @@
     ],
     "remove-urls": true,
     "ignore-broadcaster": true,
-    "ignore-mods": false
+    "ignore-mods": false,
+    "progressive-timeouts": true,
+    "progressive-timeout-length": 60,
+    "progressive-timeout-threshold": 5
   }
 }
