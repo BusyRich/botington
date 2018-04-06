@@ -1,7 +1,9 @@
 {
-  "bot-username": "busybotty",
-  "bot-oauth": "oauth:ryqjlvzg4wngkfu2xkwiuqzgiebyxx",
-  "channels": ["busyrich"],
+  "bot-username": "bottikaze",
+  "bot-oauth": "oauth:orbd7yq35usomszvoqmo3yrw2pdpvd",
+  "channels": [
+    "kamikazebot"
+  ],
   "data": {
     "store-type": "mongo",
     "connect-url": "mongodb://localhost:27017",

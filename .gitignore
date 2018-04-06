@@ -5,6 +5,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# configuration
+config.json
+
 # Runtime data
 pids
 *.pid
@@ -64,3 +67,4 @@ typings/
 __.compilerc
 
 .DS_Store
+
