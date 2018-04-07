@@ -1,4 +1,3 @@
-add command aliases to simple commands, will require modifying command running to use a "run command" function or something.
 announcements - Every X refreshes post something
 slot machine
 timer - Works off of refresh, can get # of secs left, emit event when done 
