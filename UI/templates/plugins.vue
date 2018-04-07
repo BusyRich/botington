@@ -43,9 +43,20 @@ module.exports = {
       });
     },
     togglePlugin(plugin) {
-      let p = bot.plugins[plugin];
-      p.enabled = !p.enabled;
-      this.updatePlugin(p);
+      let p = bot.plugins[plugin],
+          cb = (error) => {
+            if(error) {
+              return console.log(error);
+            }
+            
+            this.updatePlugin(p);
+          };
+
+      if(p.enabled) {
+        p.disable(cb);
+      } else {
+        p.enable(cb);
+      }
     }
   }
 }
