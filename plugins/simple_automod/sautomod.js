@@ -1,42 +1,27 @@
 module.exports = plugin => {
   return plugin.bind({
     initialize() {
-      this.restrictedWords = plugin.settings['restricted-words'];
-      this.disableURLPosting = plugin.settings['remove-urls'];
-      this.disableForBroadcaster = plugin.settings['ignore-broadcaster'];
-      this.disableForMods = plugin.settings['ignore-mods'];
-      this.progressiveTimeout = plugin.settings['progressive-timeouts'];
-      this.progressiveTimeoutAmount = plugin.settings['progressive-timeout-length'];
-      this.progressiveTimeoutThreshold = plugin.settings['progressive-timeout-threshold'];
+        this.settings = plugin.settings;
 
-      //console.log( plugin );
-
-      // this.db.updateMany(
-      //   'members',
-      //   { automodStrikes: { $gt: 0 } },
-      //   'automodStrikes',
-      //   { $set: { automodStrikes: 0 } },
-      //   ( err ) => console.log( error || 'Automod Flags Reset' )
-      // );
-
-      this.bot.on('message', data => {
+        this.bot.on('message', data => {
+          //Check for plugin enabled
         if (!this.enabled) {
           return;
         }
 
         if ((data.meta.badges.broadcaster == '1'
-          && this.disableForBroadcaster === false)
+          && this.settings['ignore-broadcaster'] === false)
           || (data.meta.badges.moderator == '1'
-            && this.disableForMods === false)
+            && this.settings['ignore-mods'] === false)
           || (data.meta.badges.broadcaster !== '1'
             && data.meta.badges.moderator !== '1'
           )) {
           var words = data.message.split(" ");
           for (let i = 0; i < words.length; i++) {
-            if (this.restrictedWords.includes(words[i].toLowerCase())) {
+            if (this.settings['restricted-words'].includes(words[i].toLowerCase())) {
               this.updateStrikes(data.username, 'restricted');
               return i;
-            } else if (this.validURL(words[i]) && this.disableURLPosting) {
+            } else if (this.validURL(words[i]) && this.settings['remove-urls']) {
               this.updateStrikes(data.username, 'urlRestricted');
             }
           }
@@ -68,8 +53,8 @@ module.exports = plugin => {
                 this.event.emit('error', error);
               }
 
-              if (member && member.automodStrikes > this.progressiveTimeoutThreshold && this.progressiveTimeout) {
-                this.sendm('progressive-timeout', { username: user, length: member.automodStrikes * this.progressiveTimeoutAmount });
+              if (member && member.automodStrikes > this.settings['progressive-timeout-threshold'] && this.settings['progressive-timeouts']) {
+                this.sendm('progressive-timeout', { username: user, length: member.automodStrikes * this.settings['progressive-timeout-length'] });
                 this.sendm(message, { username: user, count: member.automodStrikes });
               } else {
                 this.sendm('timeout', { username: user });

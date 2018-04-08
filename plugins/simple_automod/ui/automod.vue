@@ -3,31 +3,35 @@
     <h1>{{plugin.name}}: Control Panel</h1>
     <div class="setting-module">
       <h2>Ignore Streamer</h2>
-      <label class="switch" v-on:click="toggleSetting('ignore-broadcaster')">
-        <input type="checkbox" v-model="plugin['ignore-broadcaster']">
+      <label class="switch">
+        <input type="checkbox" v-on:change="toggleSetting('ignore-broadcaster')" v-model="plugin['ignore-broadcaster']">
         <span class="slider round"></span>
       </label>
     </div>
     <div class="setting-module">
       <h2>Ignore Moderators</h2>
       <label class="switch">
-        <input type="checkbox" v-model="plugin['ignore-mods']">
+        <input type="checkbox" v-on:change="toggleSetting('ignore-mods')" v-model="plugin['ignore-mods']">
         <span class="slider round"></span>
       </label>
     </div>
     <div class="setting-module">
       <h2>Increasing Timeouts</h2>
       <label class="switch">
-        <input type="checkbox" v-model="plugin['progressive-timeouts']">
+        <input type="checkbox" v-on:change="toggleSetting('progressive-timeouts')" v-model="plugin['progressive-timeouts']">
         <span class="slider round"></span>
       </label>
     </div>
     <div class="setting-module">
       <h2>Block URLs</h2>
-      <label class="switch" v-on:click="toggleSetting('remove-urls')">
-        <input type="checkbox" v-model="plugin['remove-urls']">
+      <label class="switch">
+        <input type="checkbox" v-on:change="toggleSetting('remove-urls')" v-model="plugin['remove-urls']">
         <span class="slider round"></span>
       </label>
+    </div>
+    <div class="setting-module">
+      <h2>Timeout Multiplier</h2>
+      <input type='number' min='0'>
     </div>
   </div>
 </template>
@@ -35,7 +39,6 @@
 <script>
 module.exports = {
   created() {
-    console.log(bot.plugins["simple-automod"].config);
     this.updateData(bot.plugins["simple-automod"].config);
   },
   data() {
@@ -53,7 +56,6 @@ module.exports = {
     toggleSetting(setting) {
       let b = bot.plugins['simple-automod'],
       s = bot.plugins['simple-automod'].config['default-settings'];
-      console.log(s);
       callback = (err)=> {
         if(err){
           return console.log(err);
@@ -62,10 +64,10 @@ module.exports = {
       }
 
       if(s[setting]){
-        s[setting] = false;
+        bot.plugins['simple-automod'].config['default-settings'][setting] = false;
         b.update(callback);
       }else{
-        s[setting] = true;
+        bot.plugins['simple-automod'].config['default-settings'][setting] = true;
         b.update(callback);
       }
     }
@@ -77,7 +79,7 @@ module.exports = {
 #automod {
   font-family: monospace;
   padding: 10px;
-  
+
   .setting-module {
     width: calc(50% - 20px);
     min-width: 150px;
@@ -136,6 +138,13 @@ module.exports = {
   }
   .slider.round:before {
     border-radius: 50%;
+  }
+  /* Number Inputs */
+  input[type=number]{
+    width: 5rem;
+    height: 3rem;
+    font-size: 2rem;
+    text-align: right;
   }
 }
 </style>
