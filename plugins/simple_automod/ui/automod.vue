@@ -29,10 +29,6 @@
         <span class="slider round"></span>
       </label>
     </div>
-    <div class="setting-module big-text">
-      <h2>Block URLs</h2>
-      <toggle v-on:click="toggleSetting('remove-urls')" :toggleState="plugin['remove-urls']"></toggle>
-    </div>
   </div>
 </template>
 
@@ -81,9 +77,7 @@ module.exports = {
 #automod {
   font-family: monospace;
   padding: 10px;
-  .big-text{
-    font-size:2rem;
-  }
+  
   .setting-module {
     width: calc(50% - 20px);
     min-width: 150px;
