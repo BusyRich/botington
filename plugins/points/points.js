@@ -1,4 +1,4 @@
-module.exports = plugin => {
+module.exports = function(plugin) {
   return plugin.bind({
     initialize() {
       this.pname = plugin.settings['points-name'];
