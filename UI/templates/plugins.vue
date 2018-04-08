@@ -7,7 +7,7 @@
           <i v-else class="fas fa-plug"></i>
         </span>
         <span class="plugin-toggle">
-          <a v-on:click="togglePlugin(plugin.name)"><i :class="'fas fa-toggle-' + (plugin.enabled ? 'on' : 'off')"></i></a>
+          <toggle v-on:click="togglePlugin(plugin.name)" :toggleState="plugin.enabled"></toggle>
         </span>
         <h3>{{ plugin.displayName || plugin.name.replace('-', ' ') }} v{{ plugin.version }}</h3>
         <a v-if="plugin.ui.container" class="settings-link" :onclick="'switchTab(\'#' + plugin.ui.container + '\')'">
@@ -62,7 +62,7 @@ module.exports = {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 #plugins {
   padding: 10px;
    

@@ -50,6 +50,15 @@ Vue.component('chat-messages', chat);
 import chatterList from './templates/chatterList.vue';
 Vue.component('chatter-list', chatterList);
 
+let fs = require('fs'),
+    helpersFolder = __dirname + '/templates/ui-helpers',
+    uiHelpers = fs.readdirSync(helpersFolder);
+
+for(let h = 0; h < uiHelpers.length; h++) {
+  Vue.component(uiHelpers[h].slice(0, -4), 
+    require(helpersFolder + '/' + uiHelpers[h]));
+}
+
 //Making these seperate functions is required
 //so we can unbind them from the bot later
 const onNames = data => eBus.$emit('names', data),
