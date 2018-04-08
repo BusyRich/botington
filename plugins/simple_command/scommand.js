@@ -2,13 +2,26 @@ module.exports = plugin => {
   return plugin.bind({
     initialize() {
       this.commands = {}
-      this.purchase = this.bot.plugins['member-points'].purchase;
+      
+      const purchase = this.bot.plugins['member-points'].purchase;
 
       const runCommand = (text, meta) => {
         if(text[0] === '!') {
-          this.bot.runCommand(text.substring(1), meta);
+          meta.alias = meta.command;
+          meta.command = text.substring(1);
+          this.bot.runCommand(meta.command, meta);
         } else {
-          this.bot.send(text);
+          this.bot.db.getMember(meta.username, (error, member) => {
+            if(error) {
+              console.log(error);
+            }
+
+            this.bot.send(this.bot.format(text, {
+              uptime: this.bot.uptime,
+              channel: meta.channel,
+              member: member
+            }));
+          });
         }
       };
 
@@ -29,7 +42,7 @@ module.exports = plugin => {
         }
       };
 
-      plugin.db.getAll('commands', (error, data) => {
+      this.db.getAll('commands', (error, data) => {
         if(error) {
           return this.event.emit('error', error);
         }
