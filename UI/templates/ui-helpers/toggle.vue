@@ -1,16 +1,27 @@
 <template>
-  <a v-on:click="$emit('click')"><i :class="'fas fa-toggle-' + (toggleState ? 'on' : 'off')"></i></a>
+  <a class="toggleSlider" @click="toggle">
+    <i :class="'fas fa-toggle-' + (data.toggleState ? 'on' : 'off')"></i>
+  </a>
 </template>
 
 <script>
 module.exports = {
-  props: ['value'],
-  data() {
-    return { toggleState: this.value }
+  props: ['toggleKey'],
+  created() {
+    this.data.toggleState = this.toggleKey;
   },
-  watch: {
-    toggleState(val) {
-      this.$emit('input', val);
+  data() {
+    return {
+      data: {
+        toggleState: true
+      }
+    };
+  },
+  methods: {
+    toggle() {
+      this.$set(this.data, 'toggleState', !this.data.toggleState);
+      console.log(this.data.toggleState);
+      this.$emit('click', this.data.toggleState);
     }
   }
 }
