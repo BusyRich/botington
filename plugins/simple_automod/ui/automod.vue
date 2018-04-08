@@ -24,10 +24,7 @@
     </div>
     <div class="setting-module">
       <h2>Block URLs</h2>
-      <label class="switch">
-        <input type="checkbox" v-model="plugin['remove-urls']">
-        <span class="slider round"></span>
-      </label>
+             <toggle v-on:click="toggleSetting('remove-urls')" :toggleState="plugin['remove-urls']">Test</toggle>
     </div>
   </div>
 </template>
@@ -51,7 +48,8 @@ module.exports = {
       }
     },
     toggleSetting(setting) {
-      let s = 
+      let s = bot.plugins['simple-automod'][setting];
+      console.log(s);
     },
     updatePlugin(plugin) {
       let p = bot.plugins["simple-automod"],
