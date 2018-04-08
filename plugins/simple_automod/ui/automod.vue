@@ -3,7 +3,7 @@
     <h1>{{plugin.name}}: Control Panel</h1>
     <div class="setting-module">
       <h2>Ignore Streamer</h2>
-      <label class="switch">
+      <label class="switch" v-on:click="toggleSetting('ignore-broadcaster')">
         <input type="checkbox" v-model="plugin['ignore-broadcaster']">
         <span class="slider round"></span>
       </label>
@@ -24,7 +24,14 @@
     </div>
     <div class="setting-module">
       <h2>Block URLs</h2>
-             <toggle v-on:click="toggleSetting('remove-urls')" :toggleState="plugin['remove-urls']">Test</toggle>
+      <label class="switch" v-on:click="toggleSetting('remove-urls')">
+        <input type="checkbox" v-model="plugin['remove-urls']">
+        <span class="slider round"></span>
+      </label>
+    </div>
+    <div class="setting-module big-text">
+      <h2>Block URLs</h2>
+      <toggle v-on:click="toggleSetting('remove-urls')" :toggleState="plugin['remove-urls']"></toggle>
     </div>
   </div>
 </template>
@@ -35,36 +42,35 @@ module.exports = {
     console.log(bot.plugins["simple-automod"].config);
     this.updateData(bot.plugins["simple-automod"].config);
   },
-  data: {
+  data() {
+    return { 
     plugin: {}
+    }
   },
   methods: {
     updateData(config) {
-      this.plugin = {
-        name: config["display-name"]
-      };
+      this.$set(this.plugin, 'name', config["display-name"]);
       for (var key in config["default-settings"]) {
-        this.plugin[key] = config["default-settings"][key];
+       this.$set(this.plugin, key, config["default-settings"][key]);
       }
     },
     toggleSetting(setting) {
-      let s = bot.plugins['simple-automod'][setting];
+      let b = bot.plugins['simple-automod'],
+      s = bot.plugins['simple-automod'].config['default-settings'];
       console.log(s);
-    },
-    updatePlugin(plugin) {
-      let p = bot.plugins["simple-automod"],
-        callback = error => {
-          if (error) {
-            return console.log(error);
-          }
+      callback = (err)=> {
+        if(err){
+          return console.log(err);
+        }
+        this.updateData(bot.plugins["simple-automod"].config);
+      }
 
-          this.updatePlugin(p);
-        };
-
-      if (p.enabled) {
-        p.disable(callback);
-      } else {
-        p.enable(callback);
+      if(s[setting]){
+        s[setting] = false;
+        b.update(callback);
+      }else{
+        s[setting] = true;
+        b.update(callback);
       }
     }
   }
@@ -75,7 +81,9 @@ module.exports = {
 #automod {
   font-family: monospace;
   padding: 10px;
-
+  .big-text{
+    font-size:2rem;
+  }
   .setting-module {
     width: calc(50% - 20px);
     min-width: 150px;
