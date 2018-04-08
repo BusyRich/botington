@@ -4,6 +4,14 @@
 
 <script>
 module.exports = {
-  props: ['toggleState']
+  props: ['value'],
+  data() {
+    return { toggleState: this.value }
+  },
+  watch: {
+    toggleState(val) {
+      this.$emit('input', val);
+    }
+  }
 }
 </script>
