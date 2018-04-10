@@ -6,6 +6,7 @@
   "dependencies": ["member-points"],
   "dev-mode": true,
   "enabled": true,
+  "side-nav": true,
   "ui": {
     "component": "ui/commands.vue",
     "container": "commands",

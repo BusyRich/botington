@@ -6,7 +6,7 @@
       </li>
       <li v-for="tab in tabs" :key="tab.name">
         <a :onclick="'switchTab(\'' + tab.name + '\')'">
-          <span class="icon"><i :class="'fas fa-' + tab.icon"></i></span>
+          <span class="icon"><i :class="tab.icon"></i></span>
           <span class="label">{{ tab.label }}</span>
         </a>
       </li>
@@ -34,7 +34,7 @@ module.exports = {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   #menu {
     position: fixed;
     top: 0;

@@ -8,5 +8,6 @@ timestamps on messages
 provide a simple web server to use with browser plugins in streaming software
 Quotes database with clip association
 Support for plugins to provide side tab links
-Sub command supp
+Sub command Support
+A way to completely disable plugin support (for testing and user preference)
 

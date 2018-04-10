@@ -3,12 +3,12 @@ window.bot = eWindow.bot;
 window.eBus = new Vue();
 window.tabs = [{
   name: 'chat',
-  icon: 'comment-alt',
+  icon: 'fas fa-comment-alt',
   label: 'Chat Monitor',
   element: '#monitor',
 },{
   name: 'plugins',
-  icon: 'plug',
+  icon: 'fas fa-plug',
   label: 'Plugins',
   element: '#plugins'
 }];
@@ -68,7 +68,8 @@ const onNames = data => eBus.$emit('names', data),
 const onReady = () => {
   //Loads in the plugin Vue components
   for(let p in bot.plugins) {
-    let pluginUI = bot.plugins[p].config.ui;
+    let plugin = bot.plugins[p],
+        pluginUI = plugin.config.ui;
 
     if(pluginUI) {
       if(pluginUI.component && pluginUI.tag) {
@@ -76,6 +77,15 @@ const onReady = () => {
         $('#content').append('<' + pluginUI.tag +'/>');
         Vue.component(pluginUI.tag, require(pluginUI.component));
       }
+    }
+
+    if(bot.plugins[p].config['side-nav'] === true) {
+      tabs.push({
+        name: plugin.name,
+        icon: plugin.config.icon,
+        label: plugin.displayName,
+        element: `#${pluginUI.container}`,
+      });
     }
   }
 

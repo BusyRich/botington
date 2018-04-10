@@ -11,7 +11,7 @@
             <i :class="'fas fa-toggle-' + (plugin.enabled ? 'on' : 'off')"></i>
           </a>
         </span>
-        <h3>{{ plugin.displayName || plugin.name.replace('-', ' ') }} v{{ plugin.version }}</h3>
+        <h3>{{ plugin.displayName }} v{{ plugin.version }}</h3>
         <a v-if="plugin.ui.container" class="settings-link" :onclick="'switchTab(\'#' + plugin.ui.container + '\')'">
           <span>Settings <i class="fas fa-caret-right fa-lg"></i></span>
         </a>
@@ -37,7 +37,7 @@ module.exports = {
     updatePlugin(plugin) {
       this.$set(this.plugins, plugin.name, {
         name: plugin.name,
-        displayName: plugin.config['display-name'],
+        displayName: plugin.displayName,
         version: plugin.config.version,
         icon: plugin.config.icon,
         enabled: plugin.enabled,
