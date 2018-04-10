@@ -1,6 +1,6 @@
-var Character = require('./Character.js')
+var Character = require( './Character.js' )
 module.exports = plugin => {
-  return plugin.bind({
+  return plugin.bind( {
     initialize() {
       /*
       Viewer interactive stream battles
@@ -9,12 +9,12 @@ module.exports = plugin => {
       Earn / trade / buy / sell weapons and armor
       Level Up
       reset character
-
+      join factions
       */
       // if (!this.enabled) {
       //   return;
       // }
-      this.event.emit('ready');
+      this.event.emit( 'ready' );
     }
-  });
+  } );
 };

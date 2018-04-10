@@ -1,16 +1,17 @@
-module.exports = function (name, gender, race, classification, description) {
+module.exports = function ( name, gender, race, classification, description ) {
     this.name = name;
     this.gender = gender;
     this.race = race;
     this.classification = classification;
     this.description = description;
+    this.stats( generateStats( race, classification ) )
 }
 
-function generateStats(race, classification) {
+function generateStats( race, classification ) {
     race = race.toLowerCase();
     classification = classification.toLowerCase();
     let hp, attack, defense, agility;
-    switch (race) {
+    switch ( race ) {
         case "human":
             hp = 0;
             attack = 0;
@@ -55,7 +56,7 @@ function generateStats(race, classification) {
             agility = 0;
             break;
     }
-    switch (classification) {
+    switch ( classification ) {
         case "barbarian":
             hp += 0;
             attack += 0;
@@ -136,6 +137,20 @@ function generateStats(race, classification) {
             agility += 0;
             break;
     }
+    let r1 = Math.random(),
+        r2 = Math.random(),
+        r3 = Math.random(),
+        r4 = Math.random();
+    hp *= 1 + ( r1 > 0.5 ? r1 : 0.5 );
+    attack *= 1 + ( r2 > 0.5 ? r2 : 0.5 );
+    defense *= 1 + ( r3 > 0.5 ? r3 : 0.5 );
+    agility *= 1 + ( r4 > 0.5 ? r4 : 0.5 );
+    return {
+        hp: hp,
+        attack: attack,
+        defense: defense,
+        agility: agility
+    };
 }
 
 /*

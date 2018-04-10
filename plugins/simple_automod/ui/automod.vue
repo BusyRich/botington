@@ -1,38 +1,29 @@
 <template>
   <div id="automod">
     <!-- Toggle Example -->
-    <toggle :onClick="consoleClick" :toggled="plugin['ignore-mods']">
-    </toggle>
+    
     <!-- End Toggle Example -->
 
     <h1>{{plugin.name}}: Control Panel</h1>
     <div class="setting-module">
       <h2>Ignore Streamer</h2>
-      <label class="switch">
-        <input type="checkbox" v-on:change="toggleSetting('ignore-broadcaster')" v-model="plugin['ignore-broadcaster']">
-        <span class="slider round"></span>
-      </label>
+      <toggle :onClick="toggle_ignoreBroadcaster" :toggled="plugin['ignore-broadcaster']">
+      </toggle>
     </div>
     <div class="setting-module">
       <h2>Ignore Moderators</h2>
-      <label class="switch">
-        <input type="checkbox" v-on:change="toggleSetting('ignore-mods')" v-model="plugin['ignore-mods']">
-        <span class="slider round"></span>
-      </label>
+      <toggle :onClick="toggle_ignoreMods" :toggled="plugin['ignore-mods']">
+      </toggle>
     </div>
     <div class="setting-module">
       <h2>Increasing Timeouts</h2>
-      <label class="switch">
-        <input type="checkbox" v-on:change="toggleSetting('progressive-timeouts')" v-model="plugin['progressive-timeouts']">
-        <span class="slider round"></span>
-      </label>
+      <toggle :onClick="toggle_progressiveTimeouts" :toggled="plugin['progressive-timeouts']">
+      </toggle>
     </div>
     <div class="setting-module">
       <h2>Block URLs</h2>
-      <label class="switch">
-        <input type="checkbox" v-on:change="toggleSetting('remove-urls')" v-model="plugin['remove-urls']">
-        <span class="slider round"></span>
-      </label>
+      <toggle :onClick="toggle_removeUrls" :toggled="plugin['remove-urls']">
+      </toggle>
     </div>
     <div class="setting-module">
       <h2>Timeout Multiplier</h2>
@@ -56,50 +47,66 @@ module.exports = {
     console.log(this.plugin);
   },
   data() {
-    return { 
-    plugin: {}
-    }
+    return {
+      plugin: {}
+    };
   },
   methods: {
-    updateBot(){
-      let b = bot.plugins['simple-automod'],
-      callback = (err)=> {
-        if(err){
-          return console.log(err);
-        }
-        console.log(bot.plugins["simple-automod"].config);
-        this.updateData(bot.plugins["simple-automod"].config);
-      }
+    updateBot() {
+      let b = bot.plugins["simple-automod"],
+        callback = err => {
+          if (err) {
+            return console.log(err);
+          }
+          console.log(bot.plugins["simple-automod"].config);
+          this.updateData(bot.plugins["simple-automod"].config);
+        };
       b.update(callback);
     },
     updateData(config) {
-      this.$set(this.plugin, 'name', config["display-name"]);
+      this.$set(this.plugin, "name", config["display-name"]);
       for (var key in config["default-settings"]) {
-       this.$set(this.plugin, key, config["default-settings"][key]);
+        this.$set(this.plugin, key, config["default-settings"][key]);
       }
     },
     toggleSetting(setting) {
-      let s = bot.plugins['simple-automod'].config['default-settings'];
-      
+      let s = bot.plugins["simple-automod"].config["default-settings"];
 
-      if(s[setting]){
-        bot.plugins['simple-automod'].config['default-settings'][setting] = false;
+      if (s[setting]) {
+        bot.plugins["simple-automod"].config["default-settings"][
+          setting
+        ] = false;
         this.updateBot();
-      }else{
-        bot.plugins['simple-automod'].config['default-settings'][setting] = true;
+      } else {
+        bot.plugins["simple-automod"].config["default-settings"][
+          setting
+        ] = true;
         this.updateBot();
       }
     },
-    adjustSetting(setting){
-      bot.plugins['simple-automod'].config['default-settings'][setting] = this.plugin[setting];
+    adjustSetting(setting) {
+      bot.plugins["simple-automod"].config["default-settings"][
+        setting
+      ] = this.plugin[setting];
       this.updateBot();
     },
-    adjustArray(setting){
-      bot.plugins['simple-automod'].config['default-settings'][setting] = this.plugin[setting].split(',');
+    adjustArray(setting) {
+      bot.plugins["simple-automod"].config["default-settings"][
+        setting
+      ] = this.plugin[setting].split(",");
       this.updateBot();
     },
-    consoleClick(){
-      console.log("Toggle was flipped");
+    toggle_ignoreBroadcaster() {
+      this.toggleSetting("ignore-broadcaster");
+    },
+    toggle_ignoreMods() {
+      this.toggleSetting("ignore-mods");
+    },
+    toggle_progressiveTimeouts() {
+      this.toggleSetting("progressive-timeouts");
+    },
+    toggle_removeUrls() {
+      this.toggleSetting("remove-urls");
     }
   }
 };
@@ -121,7 +128,7 @@ module.exports = {
     min-width: 150px;
     display: inline-block;
     padding: 20px;
-    textarea{
+    textarea {
       width: 100%;
       max-width: 100%;
       height: 8rem;
@@ -181,7 +188,7 @@ module.exports = {
     border-radius: 50%;
   }
   /* Number Inputs */
-  input[type=number]{
+  input[type="number"] {
     width: 5rem;
     height: 3rem;
     font-size: 2rem;
