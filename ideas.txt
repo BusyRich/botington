@@ -8,3 +8,6 @@ timestamps on messages
 provide a simple web server to use with browser plugins in streaming software
 ability to send PMs to peoples
 make the bot track its own uptime (# of refreshes made?)
+Quotes database with clip association
+Support for plugins to provide side tab links
+Sub command supp
