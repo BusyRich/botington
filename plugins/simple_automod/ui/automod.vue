@@ -1,5 +1,10 @@
 <template>
   <div id="automod">
+    <!-- Toggle Example -->
+    <toggle :onClick="consoleClick" :toggled="plugin['ignore-mods']">
+    </toggle>
+    <!-- End Toggle Example -->
+
     <h1>{{plugin.name}}: Control Panel</h1>
     <div class="setting-module">
       <h2>Ignore Streamer</h2>
@@ -92,6 +97,9 @@ module.exports = {
     adjustArray(setting){
       bot.plugins['simple-automod'].config['default-settings'][setting] = this.plugin[setting].split(',');
       this.updateBot();
+    },
+    consoleClick(){
+      console.log("Toggle was flipped");
     }
   }
 };
