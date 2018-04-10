@@ -6,5 +6,3 @@ hovering @names will highlight that person's messages
 notifications for the chat (simple stuff)
 timestamps on messages
 provide a simple web server to use with browser plugins in streaming software
-ability to send PMs to peoples
-make the bot track its own uptime (# of refreshes made?)
