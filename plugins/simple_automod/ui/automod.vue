@@ -31,7 +31,15 @@
     </div>
     <div class="setting-module">
       <h2>Timeout Multiplier</h2>
-      <input type='number' min='0'>
+      <input type='number' min='0' v-on:change="adjustSetting('progressive-timeout-length')" v-model="plugin['progressive-timeout-length']">
+    </div>
+    <div class="setting-module">
+      <h2>Timeout Threshold</h2>
+      <input type='number' min='0' v-on:change="adjustSetting('progressive-timeout-threshold')" v-model="plugin['progressive-timeout-threshold']">
+    </div>
+    <div class="setting-module-double">
+      <h2>Timeout Threshold</h2>
+      <textarea v-on:change="adjustArray('restricted-words')" v-model="plugin['restricted-words']"/>
     </div>
   </div>
 </template>
@@ -40,6 +48,7 @@
 module.exports = {
   created() {
     this.updateData(bot.plugins["simple-automod"].config);
+    console.log(this.plugin);
   },
   data() {
     return { 
@@ -47,6 +56,17 @@ module.exports = {
     }
   },
   methods: {
+    updateBot(){
+      let b = bot.plugins['simple-automod'],
+      callback = (err)=> {
+        if(err){
+          return console.log(err);
+        }
+        console.log(bot.plugins["simple-automod"].config);
+        this.updateData(bot.plugins["simple-automod"].config);
+      }
+      b.update(callback);
+    },
     updateData(config) {
       this.$set(this.plugin, 'name', config["display-name"]);
       for (var key in config["default-settings"]) {
@@ -54,22 +74,24 @@ module.exports = {
       }
     },
     toggleSetting(setting) {
-      let b = bot.plugins['simple-automod'],
-      s = bot.plugins['simple-automod'].config['default-settings'];
-      callback = (err)=> {
-        if(err){
-          return console.log(err);
-        }
-        this.updateData(bot.plugins["simple-automod"].config);
-      }
+      let s = bot.plugins['simple-automod'].config['default-settings'];
+      
 
       if(s[setting]){
         bot.plugins['simple-automod'].config['default-settings'][setting] = false;
-        b.update(callback);
+        this.updateBot();
       }else{
         bot.plugins['simple-automod'].config['default-settings'][setting] = true;
-        b.update(callback);
+        this.updateBot();
       }
+    },
+    adjustSetting(setting){
+      bot.plugins['simple-automod'].config['default-settings'][setting] = this.plugin[setting];
+      this.updateBot();
+    },
+    adjustArray(setting){
+      bot.plugins['simple-automod'].config['default-settings'][setting] = this.plugin[setting].split(',');
+      this.updateBot();
     }
   }
 };
@@ -85,6 +107,17 @@ module.exports = {
     min-width: 150px;
     display: inline-block;
     padding: 20px;
+  }
+  .setting-module-double {
+    width: calc(100% - 20px);
+    min-width: 150px;
+    display: inline-block;
+    padding: 20px;
+    textarea{
+      width: 100%;
+      max-width: 100%;
+      height: 8rem;
+    }
   }
 
   /* The switch - the box around the slider */
