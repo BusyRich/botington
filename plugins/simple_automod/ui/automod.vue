@@ -1,37 +1,41 @@
 <template>
   <div id="automod">
+    <!-- Toggle Example -->
+    
+    <!-- End Toggle Example -->
+
     <h1>{{plugin.name}}: Control Panel</h1>
     <div class="setting-module">
       <h2>Ignore Streamer</h2>
-      <label class="switch">
-        <input type="checkbox" v-on:change="toggleSetting('ignore-broadcaster')" v-model="plugin['ignore-broadcaster']">
-        <span class="slider round"></span>
-      </label>
+      <toggle :onClick="toggle_ignoreBroadcaster" :toggled="plugin['ignore-broadcaster']">
+      </toggle>
     </div>
     <div class="setting-module">
       <h2>Ignore Moderators</h2>
-      <label class="switch">
-        <input type="checkbox" v-on:change="toggleSetting('ignore-mods')" v-model="plugin['ignore-mods']">
-        <span class="slider round"></span>
-      </label>
+      <toggle :onClick="toggle_ignoreMods" :toggled="plugin['ignore-mods']">
+      </toggle>
     </div>
     <div class="setting-module">
       <h2>Increasing Timeouts</h2>
-      <label class="switch">
-        <input type="checkbox" v-on:change="toggleSetting('progressive-timeouts')" v-model="plugin['progressive-timeouts']">
-        <span class="slider round"></span>
-      </label>
+      <toggle :onClick="toggle_progressiveTimeouts" :toggled="plugin['progressive-timeouts']">
+      </toggle>
     </div>
     <div class="setting-module">
       <h2>Block URLs</h2>
-      <label class="switch">
-        <input type="checkbox" v-on:change="toggleSetting('remove-urls')" v-model="plugin['remove-urls']">
-        <span class="slider round"></span>
-      </label>
+      <toggle :onClick="toggle_removeUrls" :toggled="plugin['remove-urls']">
+      </toggle>
     </div>
     <div class="setting-module">
       <h2>Timeout Multiplier</h2>
-      <input type='number' min='0'>
+      <input type='number' min='0' v-on:change="adjustSetting('progressive-timeout-length')" v-model="plugin['progressive-timeout-length']">
+    </div>
+    <div class="setting-module">
+      <h2>Timeout Threshold</h2>
+      <input type='number' min='0' v-on:change="adjustSetting('progressive-timeout-threshold')" v-model="plugin['progressive-timeout-threshold']">
+    </div>
+    <div class="setting-module-double">
+      <h2>Timeout Threshold</h2>
+      <textarea v-on:change="adjustArray('restricted-words')" v-model="plugin['restricted-words']"/>
     </div>
   </div>
 </template>
@@ -40,36 +44,69 @@
 module.exports = {
   created() {
     this.updateData(bot.plugins["simple-automod"].config);
+    console.log(this.plugin);
   },
   data() {
-    return { 
-    plugin: {}
-    }
+    return {
+      plugin: {}
+    };
   },
   methods: {
+    updateBot() {
+      let b = bot.plugins["simple-automod"],
+        callback = err => {
+          if (err) {
+            return console.log(err);
+          }
+          console.log(bot.plugins["simple-automod"].config);
+          this.updateData(bot.plugins["simple-automod"].config);
+        };
+      b.update(callback);
+    },
     updateData(config) {
-      this.$set(this.plugin, 'name', config["display-name"]);
+      this.$set(this.plugin, "name", config["display-name"]);
       for (var key in config["default-settings"]) {
-       this.$set(this.plugin, key, config["default-settings"][key]);
+        this.$set(this.plugin, key, config["default-settings"][key]);
       }
     },
     toggleSetting(setting) {
-      let b = bot.plugins['simple-automod'],
-      s = bot.plugins['simple-automod'].config['default-settings'];
-      callback = (err)=> {
-        if(err){
-          return console.log(err);
-        }
-        this.updateData(bot.plugins["simple-automod"].config);
-      }
+      let s = bot.plugins["simple-automod"].config["default-settings"];
 
-      if(s[setting]){
-        bot.plugins['simple-automod'].config['default-settings'][setting] = false;
-        b.update(callback);
-      }else{
-        bot.plugins['simple-automod'].config['default-settings'][setting] = true;
-        b.update(callback);
+      if (s[setting]) {
+        bot.plugins["simple-automod"].config["default-settings"][
+          setting
+        ] = false;
+        this.updateBot();
+      } else {
+        bot.plugins["simple-automod"].config["default-settings"][
+          setting
+        ] = true;
+        this.updateBot();
       }
+    },
+    adjustSetting(setting) {
+      bot.plugins["simple-automod"].config["default-settings"][
+        setting
+      ] = this.plugin[setting];
+      this.updateBot();
+    },
+    adjustArray(setting) {
+      bot.plugins["simple-automod"].config["default-settings"][
+        setting
+      ] = this.plugin[setting].split(",");
+      this.updateBot();
+    },
+    toggle_ignoreBroadcaster() {
+      this.toggleSetting("ignore-broadcaster");
+    },
+    toggle_ignoreMods() {
+      this.toggleSetting("ignore-mods");
+    },
+    toggle_progressiveTimeouts() {
+      this.toggleSetting("progressive-timeouts");
+    },
+    toggle_removeUrls() {
+      this.toggleSetting("remove-urls");
     }
   }
 };
@@ -85,6 +122,17 @@ module.exports = {
     min-width: 150px;
     display: inline-block;
     padding: 20px;
+  }
+  .setting-module-double {
+    width: calc(100% - 20px);
+    min-width: 150px;
+    display: inline-block;
+    padding: 20px;
+    textarea {
+      width: 100%;
+      max-width: 100%;
+      height: 8rem;
+    }
   }
 
   /* The switch - the box around the slider */
@@ -140,7 +188,7 @@ module.exports = {
     border-radius: 50%;
   }
   /* Number Inputs */
-  input[type=number]{
+  input[type="number"] {
     width: 5rem;
     height: 3rem;
     font-size: 2rem;

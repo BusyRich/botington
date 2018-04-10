@@ -1,7 +1,7 @@
 {
   "name": "simple-automod",
-  "display-name": "Simple AutoMod",
-  "version": "1.1.0",
+  "display-name": "AutoMod",
+  "version": "1.0.0",
   "icon": "fas fa-gavel",
   "main": "sautomod.js",
   "mod-required": true,
