@@ -1,6 +1,7 @@
 <template>
   <div id="plugins">
-    <ul>
+    <h1 v-if="disabled">Plugins Have Been Disabled</h1>
+    <ul v-else>
       <li v-for="plugin in plugins" :key="plugin">
         <span class="plugin-icon">
           <i v-if="plugin.icon" :class="plugin.icon"></i>
@@ -30,6 +31,7 @@ module.exports = {
   data() {
     return {
       updates: 0,
+      disabled: bot.pluginsDisabled,
       plugins: {}
     };
   },
