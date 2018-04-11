@@ -9,4 +9,3 @@ provide a simple web server to use with browser plugins in streaming software
 Quotes database with clip association
 Sub command Support
 A way to completely disable plugin support (for testing and user preference)
-
