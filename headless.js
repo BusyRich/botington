@@ -35,4 +35,7 @@ bot.on('names', function(data) {
 bot.on('ready', () => {
 });
 
+bot.on('refresh', () => {
+});
+
 bot.initialize();
