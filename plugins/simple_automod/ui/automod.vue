@@ -34,7 +34,7 @@
       <input type='number' min='0' v-on:change="adjustSetting('progressive-timeout-threshold')" v-model="plugin['progressive-timeout-threshold']">
     </div>
     <div class="setting-module-double">
-      <h2>Timeout Threshold</h2>
+      <h2>Restricted Words</h2>
       <textarea v-on:change="adjustArray('restricted-words')" v-model="plugin['restricted-words']"/>
     </div>
   </div>

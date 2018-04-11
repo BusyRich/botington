@@ -1,4 +1,5 @@
 <template>
+  <div id="vwars">Welcome to Viewer Wars!</div>
 </template>
 
 <script>
