@@ -36,7 +36,7 @@ const createWindow = () => {
     console.log(bot.chatters.size);
   });
   
-  bot.on('leave', function(data) {
+  bot.on('part', function(data) {
     console.log('%s has left the chat. :(', data.username);
     console.log(bot.chatters.size);
   });

@@ -18,6 +18,7 @@ module.exports = {
       username => this.addChatter(username)));
 
     eBus.$on('join', data => this.addChatter(data.username));
+    eBus.$on('part', data => this.removeChatter(data.username));
   },
   data()  { return {
     chatters: []
@@ -26,6 +27,12 @@ module.exports = {
     addChatter(username) {
       if(this.chatters.indexOf(username) < 0) {
         this.chatters.push(username);
+      }
+    },
+    removeChatter(username) {
+      let i = this.chatters.indexOf(username);
+      if(i > -1) {
+        this.chatters.splice(i, 1);
       }
     }
   }

@@ -117,6 +117,10 @@ module.exports = {
           padding: 3px 5px;
           background-color: #eaeaea;
         }
+
+        img {
+          vertical-align: middle;
+        }
       }
     }
   }

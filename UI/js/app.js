@@ -63,6 +63,7 @@ for(let h = 0; h < uiHelpers.length; h++) {
 //so we can unbind them from the bot later
 const onNames = data => eBus.$emit('names', data),
       onJoin = data => eBus.$emit('join', data),
+      onPart = data => eBus.$emit('part', data),
       onMessage = data => eBus.$emit('message', data);
 
 const onReady = () => {
@@ -97,6 +98,7 @@ const onReady = () => {
 $(document).ready(() => {
   bot.on('names', onNames);
   bot.on('join', onJoin);
+  bot.on('part', onPart);
   bot.on('message', onMessage);
   bot.on('ready', onReady);
 
@@ -113,6 +115,7 @@ $(document).ready(() => {
 window.onbeforeunload = () => {
   bot.off('names', onNames);
   bot.off('join', onJoin);
+  bot.off('leave', onPart);
   bot.off('message', onMessage);
   bot.off('ready', onReady);
 };
