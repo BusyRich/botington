@@ -1,4 +1,2 @@
-Listen to leave events in the chat monitor
-Fix the timer to use its own internal loop
 fix the UI bug with the plugin settings content overflow
 bettering logging system
