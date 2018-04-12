@@ -8,4 +8,3 @@ timestamps on messages
 provide a simple web server to use with browser plugins in streaming software
 Quotes database with clip association
 Sub command Support
-a plugin Vue component that can be used as a standard base for plugin UI tab contents

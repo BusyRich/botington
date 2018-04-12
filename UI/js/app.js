@@ -12,6 +12,11 @@ window.tabs = [{
   label: 'Plugins',
   element: '#plugins'
 }];
+window.uiHelpers = {
+  mixins: {
+    plugin: require(__dirname + '/js/plugin.mixin')
+  }
+};
 
 window.switchTab = function(tabName) {
   let scrollTo = null;
@@ -37,7 +42,7 @@ window.switchTab = function(tabName) {
   }
 };
 
-//These are the main Vue components used in the UI
+//These are the main Vue components used in the base UI
 import menu from './templates/menu.vue';
 Vue.component('side-menu', menu);
 
@@ -52,11 +57,14 @@ Vue.component('chatter-list', chatterList);
 
 let fs = require('fs'),
     helpersFolder = __dirname + '/templates/ui-helpers',
-    uiHelpers = fs.readdirSync(helpersFolder);
+    helperFiles = fs.readdirSync(helpersFolder);
 
-for(let h = 0; h < uiHelpers.length; h++) {
-  Vue.component(uiHelpers[h].slice(0, -4), 
-    require(helpersFolder + '/' + uiHelpers[h]));
+//Load in the UI helper components, for use by plugin vues
+for(let h = 0; h < helperFiles.length; h++) {
+  let name = helperFiles[h].slice(0, -4);
+
+  uiHelpers[name] = require(helpersFolder + '/' + helperFiles[h]);
+  Vue.component(name,uiHelpers[name]);
 }
 
 //Making these seperate functions is required
@@ -73,7 +81,7 @@ const onReady = () => {
         pluginUI = plugin.config.ui;
 
     if(pluginUI) {
-      if(pluginUI.component && pluginUI.tag) {
+      if(plugin.enabled && pluginUI.component && pluginUI.tag) {
         //We have to add the tag used by the vue component
         $('#content').append('<' + pluginUI.tag +'/>');
         Vue.component(pluginUI.tag, require(pluginUI.component));
