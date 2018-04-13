@@ -43,7 +43,7 @@ module.exports = {
   left: 0;
   width: 48px;
   font-size: 24px;
-  background-color: $light;
+  background-color: $colors-light;
   z-index: 1;
 
   #botingtonLogo {
@@ -76,7 +76,7 @@ module.exports = {
       .icon {
         text-align: center;
         z-index: 1;
-        background-color: $light;
+        background-color: $colors-light;
         transition: color 0.5s, background-color 0.5s;
       }
       
@@ -86,18 +86,18 @@ module.exports = {
         width: fit-content;
         font-size: 16px;
         padding: 0 10px;
-        color: $light;
+        color: $colors-light;
         white-space: nowrap;
-        border: 1px solid $dark;
-        background-color: $dark;
+        border: 1px solid $colors-dark;
+        background-color: $colors-dark;
         border-radius: 0 8px 8px 0;
         transition: left 0.5s;
       }
       
       &:hover {
         .icon {
-          color: $light;
-          background-color: $dark;
+          color: $colors-light;
+          background-color: $colors-dark;
         }
 
         .label {

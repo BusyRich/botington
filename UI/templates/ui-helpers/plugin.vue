@@ -31,7 +31,7 @@ module.exports = {
 
   h1 {
     padding: 5px 0;
-    border-bottom: 1px solid $light;
+    border-bottom: 1px solid $colors-light;
   }
 
   .plugin-ui-content {
