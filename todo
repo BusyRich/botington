@@ -1,2 +1,6 @@
+UI for built in plugins
+timestamps on messages
+in-chat notifications for commands
+listen to two different IRC connections to catpure both regular and bot messgaes
 bettering logging system
 unit testing (duh)

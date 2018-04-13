@@ -1,9 +1,8 @@
-announcements - Every X refreshes post something
+announcements - timer-based reoccuring posts to chat
 slot machine
 time - date/time and timer and countdown
 hovering @names will highlight that person's messages
-notifications for the chat (simple stuff)
-timestamps on messages
+OS notifications for the chat (simple stuff)
 provide a simple web server to use with browser plugins in streaming software
 Quotes database with clip association
 Sub command Support
