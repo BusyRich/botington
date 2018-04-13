@@ -35,74 +35,77 @@ module.exports = {
 </script>
 
 <style lang="scss">
-  #menu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 48px;
-    font-size: 24px;
-    background-color: #eaeaea;
+@import 'UI/scss/_globals';
 
-    #botingtonLogo {
-      width: 40px;
-      margin: 4px;
-    }
+#menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 48px;
+  font-size: 24px;
+  background-color: $light;
+  z-index: 1;
 
-    li {
+  #botingtonLogo {
+    width: 40px;
+    margin: 4px;
+  }
+
+  li {
+    height: 48px;
+
+    a {
+      position: relative;
+      display: inline-block;
+      width: 48px;
       height: 48px;
-
-      a {
-        position: relative;
+      line-height: 48px;
+      font-size: 24px;
+      color: inherit;
+      text-decoration: none;
+      cursor: pointer;
+      
+      span {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+      }
+      
+      .icon {
+        text-align: center;
+        z-index: 1;
+        background-color: $light;
+        transition: color 0.5s, background-color 0.5s;
+      }
+      
+      .label {
+        left: -40em;
         display: inline-block;
-        width: 48px;
-        height: 48px;
-        line-height: 48px;
-        font-size: 24px;
-        color: inherit;
-        text-decoration: none;
-        cursor: pointer;
-        
-        span {
-          position: absolute;
-          left: 0;
-          top: 0;
-          width: 100%;
-          height: 100%;
-        }
-        
+        width: fit-content;
+        font-size: 16px;
+        padding: 0 10px;
+        color: $light;
+        white-space: nowrap;
+        border: 1px solid $dark;
+        background-color: $dark;
+        border-radius: 0 8px 8px 0;
+        transition: left 0.5s;
+      }
+      
+      &:hover {
         .icon {
-          text-align: center;
-          z-index: 1;
-          background-color: #eaeaea;
-          transition: color 0.5s, background-color 0.5s;
+          color: $light;
+          background-color: $dark;
         }
-        
-        .label {
-          left: -100px;
-          display: inline-block;
-          width: fit-content;
-          font-size: 16px;
-          padding: 0 10px;
-          color: #eaeaea;
-          white-space: nowrap;
-          border: 1px solid #3F3F3F;
-          background-color: #3F3F3F;
-          border-radius: 0 8px 8px 0;
-          transition: left 0.5s;
-        }
-        
-        &:hover {
-          .icon {
-            color: #eaeaea;
-            background-color: #3F3F3F;
-          }
 
-          .label {
-            left: 48px;
-          }
+        .label {
+          left: 48px;
         }
       }
     }
   }
+}
 </style>
 
