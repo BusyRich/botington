@@ -6,3 +6,4 @@ OS notifications for the chat (simple stuff)
 provide a simple web server to use with browser plugins in streaming software
 Quotes database with clip association
 Sub command Support
+Plugin should have a base update and a custom save
