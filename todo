@@ -1,5 +1,7 @@
 UI for built in plugins
+Fix auto-scrolling to only work if scrolled to the bottom
 timestamps on messages
+make message border color based on the member name color
 in-chat notifications for commands
 listen to two different IRC connections to catpure both regular and bot messgaes
 bettering logging system
