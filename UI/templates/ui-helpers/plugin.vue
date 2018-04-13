@@ -21,6 +21,8 @@ module.exports = {
 </script>
 
 <style lang="scss">
+@import 'UI/scss/_globals';
+
 .plugin-ui {
   display: flex;
   flex-flow: column;
@@ -28,7 +30,8 @@ module.exports = {
   padding: 10px;
 
   h1 {
-    margin-bottom: 5px;
+    padding: 5px 0;
+    border-bottom: 1px solid $light;
   }
 
   .plugin-ui-content {

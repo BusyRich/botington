@@ -1,6 +1,6 @@
 <template>
   <plugin v-model="plugin">
-    <h1>{{ config.dependencies.toString() }}</h1>
+    <h2>{{ config.dependencies.toString() }}</h2>
     <div v-for="t in testd" :key="t">Test Data #{{ t }}</div>
   </plugin>
 </template>
