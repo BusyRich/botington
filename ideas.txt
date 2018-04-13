@@ -1,6 +1,5 @@
 announcements - Every X refreshes post something
 slot machine
-timer - Works off of refresh, can get # of secs left, emit event when done 
 time - date/time and timer and countdown
 hovering @names will highlight that person's messages
 notifications for the chat (simple stuff)
