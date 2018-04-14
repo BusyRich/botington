@@ -10,3 +10,5 @@ Plugin should have a base update and a custom save
 Using the HTTP server, allow the user to build and serve a custom stream overlay
 The ability to mark messages read or unread
 Message persistance per session? Session or local storage?
+Default plugin UI that can be used to generate the UI automatically 
+  based on the types of settings in the plugin settings
