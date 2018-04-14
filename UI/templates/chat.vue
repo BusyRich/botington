@@ -1,13 +1,12 @@
 <template>
   <div id="chatWrapper" class="height-100">
     <div id="chatMessages">
-      <p v-for="message in messages" :key="message.id" class="message">
-        <i v-if="message.meta.mod" class="fas fa-shield-alt"></i>
-        <i v-if="message.meta.subscriber" class="far fa-credit-card"></i>
-        <i v-if="message.meta.badges && message.meta.badges.broadcaster" class="fas fa-video"></i>
-        <i v-if="message.meta.turbo" class="fas fa-battery-full"></i>
-        <span :style="{color:message.meta.color}">{{ message.username }}</span>:&nbsp;
-        <span v-html="message.message"></span>
+      <p v-for="message in messages" :key="message.id" class="message" :style="{borderColor:message.meta.color}">
+        <span class="time" >{{ message.time }}</span>
+        <span class="text">
+          <span class="sender" :style="{color:message.meta.color}">{{ message.username }}</span>:
+          <span v-html="message.message"></span>
+        </span>
       </p>
     </div>
   </div>
@@ -92,8 +91,16 @@ module.exports = {
         '<span class="at-username" data-user="$2">$1$2</span>');
 
       data.message = message;
+      data.time = moment().format('HH:mm');
 
       this.messages.push(data);
+      vm.$refs.chatters.updateChatter({
+        username: data.username,
+        mod: data.meta.mod,
+        subscriber: data.meta.subscriber,
+        broadcaster: data.meta.badges && data.meta.badges.broadcaster,
+        turbo: data.meta.turbo
+      });
       this.count++;
     },
     populate(delay = 1000) {
@@ -135,29 +142,37 @@ module.exports = {
 </script>
 
 <style lang="scss">
-  #chatWrapper {
-    width: 75%;
-    overflow: auto;
-    //padding: 10px;
+@import 'UI/scss/_globals';
 
-    #chatMessages {
-      display: flex;
-      justify-content: flex-end;
-      flex-direction: column;
-      min-height: 100%;
-  
-      .message {
-        flex: 0 0 auto;
-        min-height: min-content;
-        // padding-left: 8px;
-        // margin: 6px 0;
-        line-height: 2em;
-        border-left: 2px solid #eaeaea;
-        z-index: 0;
+#chatWrapper {
+  width: 75%;
+  overflow: auto;
 
+  #chatMessages {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    min-height: 100%;
+
+    .message {
+      flex: 0 0 auto;
+      min-height: min-content;
+      padding-left: 8px;
+      margin: 10px;
+      border-left: 2px solid $colors-light;
+      z-index: 0;
+
+      .time {
+        height: 100%;
+        width: 40px;
+        line-height: 20px;
+        color: $colors-light;
+      }
+
+      .text {
         .at-username {
           padding: 3px 5px;
-          background-color: #eaeaea;
+          background-color: $colors-light;
         }
 
         img {
@@ -166,5 +181,6 @@ module.exports = {
       }
     }
   }
+}
 </style>
 

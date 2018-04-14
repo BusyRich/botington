@@ -1,6 +1,4 @@
-Fix auto-scrolling to only work if scrolled to the bottom
-timestamps on messages
-make message border color based on the member name color
+Order Chatters by mod/not mod
 UI for built in plugins
 in-chat notifications for commands
 listen to two different IRC connections to catpure both regular and bot messgaes
