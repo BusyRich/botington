@@ -10,3 +10,4 @@ Plugin should have a base update and a custom save
 Using the HTTP server, allow the user to build and serve a custom stream overlay
 The ability to mark messages read or unread
 Message persistance per session? Session or local storage?
+Console output plugin - for hc dev work
