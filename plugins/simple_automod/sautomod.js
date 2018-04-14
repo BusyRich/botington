@@ -1,14 +1,19 @@
 module.exports = plugin => {
   return plugin.bind({
     initialize() {
-        this.settings = plugin.settings;
+      this.settings = plugin.settings;
 
-        this.bot.on('message', data => {
-          //Check for plugin enabled
+      this.bot.on('message', data => {
+        //Check for plugin enabled
         if (!this.enabled) {
           return;
         }
-
+        if (!data.meta.badges.hasOwnProperty('broadcaster')) {
+          data.meta.badges.broadcaster = 0;
+        }
+        if (!data.meta.badges.hasOwnProperty('moderator')) {
+          data.meta.badges.moderator = 0;
+        }
         if ((data.meta.badges.broadcaster == '1'
           && this.settings['ignore-broadcaster'] === false)
           || (data.meta.badges.moderator == '1'

@@ -9,18 +9,15 @@
 module.exports = {
   mixins: [uiHelpers.mixins.plugin],
   created() {
-    for(let t = 0; t < 100; t++) {
+    for (let t = 0; t < 100; t++) {
       this.testd.push(t);
     }
   },
   data() {
     return {
-      name: 'simple-command',
+      name: "simple-command",
       testd: []
     };
   }
-}
+};
 </script>
-
-
-
