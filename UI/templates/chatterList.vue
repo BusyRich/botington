@@ -1,6 +1,6 @@
 <template>
   <ul id="chatters" class="height-100" >
-    <li v-for="chatter in chatters" :key="chatter.username" class="chatter" :id="'chatter-' + chatter.username">
+    <li v-for="chatter in orderedChatters" :key="chatter.username" class="chatter" :id="'chatter-' + chatter.username">
       <i class="fa fa-user"></i>
       <span>{{ chatter.username }}</span>
       <i v-if="chatter.mod" class="fas fa-shield-alt"></i>
@@ -27,6 +27,21 @@ module.exports = {
   data()  { return {
     chatters: {}
   }},
+  computed: {
+    orderedChatters() {
+      let ordered = [];
+
+      for(let c in this.chatters) {
+        if(this.chatters[c].mod) {
+          ordered.unshift(this.chatters[c]);
+        } else {
+          ordered.push(this.chatters[c]);
+        }
+      }
+
+      return ordered;
+    }
+  },
   methods: {
     addChatter(username) {
       if(!this.chatters[username]) {

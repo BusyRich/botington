@@ -2,11 +2,12 @@
   <div id="chatWrapper" class="height-100">
     <div id="chatMessages">
       <p v-for="message in messages" :key="message.id" class="message" :style="{borderColor:message.meta.color}">
-        <span class="time" >{{ message.time }}</span>
         <span class="text">
           <span class="sender" :style="{color:message.meta.color}">{{ message.username }}</span>:
           <span v-html="message.message"></span>
         </span>
+        <br/>
+        <span class="meta" >{{ message.time }}</span>
       </p>
     </div>
   </div>
@@ -91,7 +92,7 @@ module.exports = {
         '<span class="at-username" data-user="$2">$1$2</span>');
 
       data.message = message;
-      data.time = moment().format('HH:mm');
+      data.time = moment().format('MM/DD/YY @ hh:mmA');
 
       this.messages.push(data);
       vm.$refs.chatters.updateChatter({
@@ -162,7 +163,7 @@ module.exports = {
       border-left: 2px solid $colors-light;
       z-index: 0;
 
-      .time {
+      .meta {
         height: 100%;
         width: 40px;
         line-height: 20px;
