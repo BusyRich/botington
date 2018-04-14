@@ -94,7 +94,12 @@ module.exports = {
       data.message = message;
       data.time = moment().format('MM/DD/YY @ hh:mmA');
 
+      if(this.messages.length === 200) {
+        this.messages.shift();
+      }
+
       this.messages.push(data);
+
       vm.$refs.chatters.updateChatter({
         username: data.username,
         mod: data.meta.mod,
