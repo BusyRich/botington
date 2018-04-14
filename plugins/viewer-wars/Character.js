@@ -15,7 +15,9 @@
             agility
 */
 /*
-    DB.vwars-items -> Items.js -> Character
+    DB.vwars-items -> Items.js -> vwars.js
+    DB.vwars-chars -> vwars.js
+    Character.js ->  vwars.js
 */
 
 module.exports = function (name, gender, race, classification, description) {
@@ -36,47 +38,47 @@ function generateStats(race, classification) {
     let hp, attack, defense, agility;
     switch (race) {
         case "human":
-            hp = 0;
-            attack = 0;
-            defense = 0;
-            agility = 0;
+            hp = 100;
+            attack = 10;
+            defense = 10;
+            agility = 10;
             break;
         case "elf":
-            hp = 0;
-            attack = 0;
-            defense = 0;
-            agility = 0;
+            hp = 80;
+            attack = 12;
+            defense = 10;
+            agility = 15;
             break;
         case "dwarf":
-            hp = 0;
-            attack = 0;
-            defense = 0;
-            agility = 0;
+            hp = 120;
+            attack = 15;
+            defense = 12;
+            agility = 6;
             break;
         case "halfling":
-            hp = 0;
-            attack = 0;
-            defense = 0;
-            agility = 0;
+            hp = 60;
+            attack = 10;
+            defense = 18;
+            agility = 18;
             break;
         case "gnome":
-            hp = 0;
-            attack = 0;
-            defense = 0;
-            agility = 0;
+            hp = 60;
+            attack = 15;
+            defense = 19;
+            agility = 10;
             break;
         case "half-orc":
-            hp = 0;
-            attack = 0;
-            defense = 0;
-            agility = 0;
+            hp = 90;
+            attack = 20;
+            defense = 10;
+            agility = 10;
             break;
 
         default:
-            hp = 0;
-            attack = 0;
-            defense = 0;
-            agility = 0;
+            hp = 100;
+            attack = 10;
+            defense = 10;
+            agility = 10;
             break;
     }
     switch (classification) {

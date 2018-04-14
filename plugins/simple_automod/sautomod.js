@@ -8,6 +8,12 @@ module.exports = plugin => {
         if (!this.enabled) {
           return;
         }
+        if (!data.meta.hasOwnProperty('badges')) {
+          data.meta.badges = {
+            broadcaster: 0,
+            moderator: 0
+          };
+        }
         if (!data.meta.badges.hasOwnProperty('broadcaster')) {
           data.meta.badges.broadcaster = 0;
         }
