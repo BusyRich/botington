@@ -29,139 +29,15 @@ module.exports = function (name, gender, race, classification, description) {
     this.creationDate = new Date();
     this.age = 0;
     this.gear = generateGear(race, classification);
-    this.stats = generateStats(race, classification);
+    this.stats = generateStats();
+    return this;
 }
 
-function generateStats(race, classification) {
-    race = race.toLowerCase();
-    classification = classification.toLowerCase();
-    let hp, attack, defense, agility;
-    switch (race) {
-        case "human":
-            hp = 100;
-            attack = 10;
-            defense = 10;
-            agility = 10;
-            break;
-        case "elf":
-            hp = 80;
-            attack = 12;
-            defense = 10;
-            agility = 15;
-            break;
-        case "dwarf":
-            hp = 120;
-            attack = 15;
-            defense = 12;
-            agility = 6;
-            break;
-        case "halfling":
-            hp = 60;
-            attack = 10;
-            defense = 18;
-            agility = 18;
-            break;
-        case "gnome":
-            hp = 60;
-            attack = 15;
-            defense = 19;
-            agility = 10;
-            break;
-        case "half-orc":
-            hp = 90;
-            attack = 20;
-            defense = 10;
-            agility = 10;
-            break;
-
-        default:
-            hp = 100;
-            attack = 10;
-            defense = 10;
-            agility = 10;
-            break;
-    }
-    switch (classification) {
-        case "barbarian":
-            hp += 0;
-            attack += 0;
-            defense += 0;
-            agility += 0;
-            break;
-        case "bard":
-            hp += 0;
-            attack += 0;
-            defense += 0;
-            agility += 0;
-            break;
-        case "cleric":
-            hp += 0;
-            attack += 0;
-            defense += 0;
-            agility += 0;
-            break;
-        case "druid":
-            hp += 0;
-            attack += 0;
-            defense += 0;
-            agility += 0;
-            break;
-        case "fighter":
-            hp += 0;
-            attack += 0;
-            defense += 0;
-            agility += 0;
-            break;
-        case "monk":
-            hp += 0;
-            attack += 0;
-            defense += 0;
-            agility += 0;
-            break;
-        case "paladin":
-            hp += 0;
-            attack += 0;
-            defense += 0;
-            agility += 0;
-            break;
-        case "ranger":
-            hp += 0;
-            attack += 0;
-            defense += 0;
-            agility += 0;
-            break;
-        case "rogue":
-            hp += 0;
-            attack += 0;
-            defense += 0;
-            agility += 0;
-            break;
-        case "sorcerer":
-            hp += 0;
-            attack += 0;
-            defense += 0;
-            agility += 0;
-            break;
-        case "warlock":
-            hp += 0;
-            attack += 0;
-            defense += 0;
-            agility += 0;
-            break;
-        case "wizard":
-            hp += 0;
-            attack += 0;
-            defense += 0;
-            agility += 0;
-            break;
-
-        default:
-            hp += 0;
-            attack += 0;
-            defense += 0;
-            agility += 0;
-            break;
-    }
+function generateStats() {
+    let hp = 100,
+        attack = 15,
+        defense = 15,
+        agility = 15;
     let r1 = Math.random(),
         r2 = Math.random(),
         r3 = Math.random(),
@@ -170,6 +46,7 @@ function generateStats(race, classification) {
     attack *= 1 + (r2 > 0.5 ? r2 : 0.5);
     defense *= 1 + (r3 > 0.5 ? r3 : 0.5);
     agility *= 1 + (r4 > 0.5 ? r4 : 0.5);
+    hp = Math.floor(hp);
     return {
         hp: hp,
         attack: attack,
@@ -181,43 +58,43 @@ function generateGear(classification) {
     let gearList = [];
     switch (classification) {
         case "barbarian":
-            gearList.push(Gear[0]);
+            gearList.push(3);
             break;
         case "bard":
-            gearList.push(Gear[0]);
+            gearList.push(3);
             break;
         case "cleric":
-            gearList.push(Gear[0]);
+            gearList.push(3);
             break;
         case "druid":
-            gearList.push(Gear[0]);
+            gearList.push(3);
             break;
         case "fighter":
-            gearList.push(Gear[0]);
+            gearList.push(3);
             break;
         case "monk":
-            gearList.push(Gear[0]);
+            gearList.push(3);
             break;
         case "paladin":
-            gearList.push(Gear[0]);
+            gearList.push(3);
             break;
         case "ranger":
-            gearList.push(Gear[0]);
+            gearList.push(3);
             break;
         case "rogue":
-            gearList.push(Gear[0]);
+            gearList.push(3);
             break;
         case "sorcerer":
-            gearList.push(Gear[0]);
+            gearList.push(3);
             break;
         case "warlock":
-            gearList.push(Gear[0]);
+            gearList.push(3);
             break;
         case "wizard":
-            gearList.push(Gear[0]);
+            gearList.push(3);
             break;
         default:
-            gearList.push(Gear[0]);
+            gearList.push(3);
             break;
     }
 }
