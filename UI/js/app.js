@@ -17,6 +17,7 @@ window.uiHelpers = {
     plugin: require(__dirname + '/js/plugin.mixin')
   }
 };
+window.moment = require('moment');
 
 window.switchTab = function(tabName) {
   let scrollTo = null;

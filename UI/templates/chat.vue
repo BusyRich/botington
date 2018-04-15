@@ -1,13 +1,13 @@
 <template>
   <div id="chatWrapper" class="height-100">
     <div id="chatMessages">
-      <p v-for="message in messages" :key="message.id" class="message">
-        <i v-if="message.meta.mod" class="fas fa-shield-alt"></i>
-        <i v-if="message.meta.subscriber" class="far fa-credit-card"></i>
-        <i v-if="message.meta.badges && message.meta.badges.broadcaster" class="fas fa-video"></i>
-        <i v-if="message.meta.turbo" class="fas fa-battery-full"></i>
-        <span :style="{color:message.meta.color}">{{ message.username }}</span>:&nbsp;
-        <span v-html="message.message"></span>
+      <p v-for="message in messages" :key="message.id" class="message" :style="{borderColor:message.meta.color}">
+        <span class="text">
+          <span class="sender" :style="{color:message.meta.color}">{{ message.username }}</span>:
+          <span v-html="message.message"></span>
+        </span>
+        <br/>
+        <span class="meta" >{{ message.time }}</span>
       </p>
     </div>
   </div>
@@ -20,15 +20,26 @@ const sortEmotes = function(a, b) {
   return a.start - b.start;
 };
 
+const scrollToButt = function(el, atBottom) {
+  if(el.scrollHeight === el.clientHeight || !atBottom) {
+    return;
+  }
+
+  el.scrollTop = el.scrollHeight;
+  atBottom = true;
+};
+
 module.exports = {
   created() {
     eBus.$on('message', data => this.addMessage(data));
+    this.getMessages();
   },
   mounted() {
     this.$el.addEventListener('scroll', () => {
       this.atBottom = this.$el.scrollTop === 
         this.$el.scrollHeight - this.$el.clientHeight;
     });
+    this.scroll();
   },
   data() {
     return {
@@ -43,7 +54,7 @@ module.exports = {
     };
   },
   updated() {
-    setTimeout(() => this.scrollToButt(), 1);
+    this.scroll();
   },
   methods: {
     addMessage(data) {
@@ -92,9 +103,29 @@ module.exports = {
         '<span class="at-username" data-user="$2">$1$2</span>');
 
       data.message = message;
+      data.time = moment().format('MM/DD/YY @ hh:mmA');
+
+      if(this.messages.length === 200) {
+        this.messages.shift();
+      }
 
       this.messages.push(data);
+      this.saveMessages();
+
+      vm.$refs.chatters.updateChatter({
+        username: data.username,
+        mod: data.meta.mod,
+        subscriber: data.meta.subscriber,
+        broadcaster: data.meta.badges && data.meta.badges.broadcaster,
+        turbo: data.meta.turbo
+      });
       this.count++;
+    },
+    getMessages() {
+      this.messages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+    },
+    saveMessages() {
+      localStorage.setItem('chatMessages', JSON.stringify(this.messages));
     },
     populate(delay = 1000) {
       this.tmp = setInterval(() => {
@@ -121,43 +152,45 @@ module.exports = {
     stopIt() {
       clearInterval(this.tmp);
     },
-    scrollToButt() {
-      let el = this.$el;
-      if(el.scrollHeight === el.clientHeight || !this.atBottom) {
-        return;
-      }
-
-      el.scrollTop = el.scrollHeight;
-      this.atBottom = true;
+    scroll() {
+      setTimeout(() => scrollToButt(this.$el, this.atBottom), 1);
     }
   }
 }
 </script>
 
 <style lang="scss">
-  #chatWrapper {
-    width: 75%;
-    overflow: auto;
-    //padding: 10px;
+@import 'UI/scss/_globals';
 
-    #chatMessages {
-      display: flex;
-      justify-content: flex-end;
-      flex-direction: column;
-      min-height: 100%;
-  
-      .message {
-        flex: 0 0 auto;
-        min-height: min-content;
-        // padding-left: 8px;
-        // margin: 6px 0;
-        line-height: 2em;
-        border-left: 2px solid #eaeaea;
-        z-index: 0;
+#chatWrapper {
+  width: 75%;
+  overflow: auto;
 
+  #chatMessages {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    min-height: 100%;
+
+    .message {
+      flex: 0 0 auto;
+      min-height: min-content;
+      padding-left: 8px;
+      margin: 10px;
+      border-left: 2px solid $colors-light;
+      z-index: 0;
+
+      .meta {
+        height: 100%;
+        width: 40px;
+        line-height: 20px;
+        color: $colors-light;
+      }
+
+      .text {
         .at-username {
           padding: 3px 5px;
-          background-color: #eaeaea;
+          background-color: $colors-light;
         }
 
         img {
@@ -166,5 +199,6 @@ module.exports = {
       }
     }
   }
+}
 </style>
 

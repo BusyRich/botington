@@ -1,8 +1,12 @@
 <template>
   <ul id="chatters" class="height-100" >
-    <li v-for="username in chatters" :key="username" class="chatter" :id="'chatter-' + username">
+    <li v-for="chatter in orderedChatters" :key="chatter.username" class="chatter" :id="'chatter-' + chatter.username">
       <i class="fa fa-user"></i>
-      <span>{{ username }}</span>
+      <span>{{ chatter.username }}</span>
+      <i v-if="chatter.mod" class="fas fa-shield-alt"></i>
+      <i v-if="chatter.subscriber" class="far fa-credit-card"></i>
+      <i v-if="chatter.broadcaster" class="fas fa-video"></i>
+      <i v-if="chatter.turbo" class="fas fa-battery-full"></i>
     </li>
   </ul>
 </template>
@@ -21,19 +25,47 @@ module.exports = {
     eBus.$on('part', data => this.removeChatter(data.username));
   },
   data()  { return {
-    chatters: []
+    chatters: {}
   }},
+  computed: {
+    orderedChatters() {
+      let ordered = [];
+
+      for(let c in this.chatters) {
+        if(this.chatters[c].mod) {
+          ordered.unshift(this.chatters[c]);
+        } else {
+          ordered.push(this.chatters[c]);
+        }
+      }
+
+      return ordered;
+    }
+  },
   methods: {
     addChatter(username) {
-      if(this.chatters.indexOf(username) < 0) {
-        this.chatters.push(username);
+      if(!this.chatters[username]) {
+        this.$set(this.chatters, username, {username});
+      }
+    },
+    updateChatter(memberInfo) {
+      if(this.chatters[memberInfo.username]) {
+        this.$set(this.chatters, memberInfo.username, memberInfo);
       }
     },
     removeChatter(username) {
-      let i = this.chatters.indexOf(username);
-      if(i > -1) {
-        this.chatters.splice(i, 1);
+      if(this.chatters[username]) {
+        this.$delete(this.chatters, username);
       }
+    },
+    hasTags(username) {
+      if(this.chatters[username]) {
+        let chatter = this.chatters[username];
+        return chatter.mod || chatter.subscriber || 
+          chatter.broadcaster || chatter.turbo;
+      }
+
+      return false;
     }
   }
 }

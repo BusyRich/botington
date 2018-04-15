@@ -8,7 +8,7 @@
   "mod-required": true,
   "mod-reason": "The simple-automod plugin needs mod in order to timeout users, and repeat messages more frequently than the standard.",
   "dependencies": [],
-  "dev-mode": true,
+  "dev-mode": false,
   "enabled": true,
   "messages": {
     "restricted": "@{username} Please do not use restricted words, you have had {count} automod warnings!",
