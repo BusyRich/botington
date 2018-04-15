@@ -20,15 +20,26 @@ const sortEmotes = function(a, b) {
   return a.start - b.start;
 };
 
+const scrollToButt = function(el, atBottom) {
+  if(el.scrollHeight === el.clientHeight || !atBottom) {
+    return;
+  }
+
+  el.scrollTop = el.scrollHeight;
+  atBottom = true;
+};
+
 module.exports = {
   created() {
     eBus.$on('message', data => this.addMessage(data));
+    this.getMessages();
   },
   mounted() {
     this.$el.addEventListener('scroll', () => {
       this.atBottom = this.$el.scrollTop === 
         this.$el.scrollHeight - this.$el.clientHeight;
     });
+    this.scroll();
   },
   data() {
     return {
@@ -43,7 +54,7 @@ module.exports = {
     };
   },
   updated() {
-    setTimeout(() => this.scrollToButt(), 1);
+    this.scroll();
   },
   methods: {
     addMessage(data) {
@@ -99,6 +110,7 @@ module.exports = {
       }
 
       this.messages.push(data);
+      this.saveMessages();
 
       vm.$refs.chatters.updateChatter({
         username: data.username,
@@ -108,6 +120,12 @@ module.exports = {
         turbo: data.meta.turbo
       });
       this.count++;
+    },
+    getMessages() {
+      this.messages = JSON.parse(localStorage.getItem('chatMessages')) || [];
+    },
+    saveMessages() {
+      localStorage.setItem('chatMessages', JSON.stringify(this.messages));
     },
     populate(delay = 1000) {
       this.tmp = setInterval(() => {
@@ -134,14 +152,8 @@ module.exports = {
     stopIt() {
       clearInterval(this.tmp);
     },
-    scrollToButt() {
-      let el = this.$el;
-      if(el.scrollHeight === el.clientHeight || !this.atBottom) {
-        return;
-      }
-
-      el.scrollTop = el.scrollHeight;
-      this.atBottom = true;
+    scroll() {
+      setTimeout(() => scrollToButt(this.$el, this.atBottom), 1);
     }
   }
 }
