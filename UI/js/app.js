@@ -17,6 +17,7 @@ window.uiHelpers = {
     plugin: require(__dirname + '/js/plugin.mixin')
   }
 };
+window._ = require('lodash');
 window.moment = require('moment');
 
 window.switchTab = function(tabName) {
