@@ -1,6 +1,7 @@
 UI for built in plugins
 in-chat notifications for commands
 listen to two different IRC connections to catpure both regular and bot messgaes
+clean up UI JS (better naming)
 allow sending messages from the chat monitor
 bettering logging system
 unit testing (duh)

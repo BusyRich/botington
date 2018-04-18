@@ -1,10 +1,5 @@
 <template>
-  <div id="automod">
-    <!-- Toggle Example -->
-    
-    <!-- End Toggle Example -->
-
-    <h1>{{plugin.name}}: Control Panel</h1>
+  <plugin v-model="plugin">
     <div class="setting-module">
       <h2>Ignore Streamer</h2>
       <toggle :onClick="toggle_ignoreBroadcaster" :toggled="plugin['ignore-broadcaster']">
@@ -37,18 +32,18 @@
       <h2>Restricted Words</h2>
       <textarea v-on:change="adjustArray('restricted-words')" v-model="plugin['restricted-words']"/>
     </div>
-  </div>
+  </plugin>
 </template>
 
 <script>
 module.exports = {
+  mixins: [uiHelpers.mixins.plugin],
   created() {
     this.updateData(bot.plugins["simple-automod"].config);
-    console.log(this.plugin);
   },
   data() {
     return {
-      plugin: {}
+      name: "simple-automod"
     };
   },
   methods: {
