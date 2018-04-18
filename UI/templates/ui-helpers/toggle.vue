@@ -1,5 +1,5 @@
 <template>
-  <label  class="switch">
+  <label class="switch">
     <input type="checkbox" @click="onClick" v-model="toggled">
     <span class="slider round"></span>
   </label>
@@ -15,61 +15,75 @@ module.exports = {
     toggled: {
       type: Boolean,
       required: false
+    },
+    size: {
+      type: Number,
+      required: false
+    }
+  },
+  mounted() {
+    if(this.size && this.size > 0) {
+      this.$el.setAttribute('style', 
+        `width:${this.size}px;height:${this.size * 0.65}px;`);
     }
   }
 };
 </script>
-<style>
-/* The switch - the box around the slider */
+
+<style lang="scss">
+@import 'UI/scss/_globals';
+$width: 42px;
+$bigWidth: $width * 1.5;
+
 .switch {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
+  width: $width;
+  height: $width * 0.65;
+
+  input {
+    display: none;
+
+    &:checked + .slider {
+      background-color: $colors-green;
+    }
+
+    &:checked + .slider:before {
+      transform: translateX(58%);
+    }
+  }
+
+    /* The slider */
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $colors-light;
+    transition: 0.4s;
+  
+    &:before {
+      position: absolute;
+      content: "";
+      height: 75%;
+      width: 49%;
+      left: 12%;
+      bottom: 11%;
+      background-color: white;
+      transition: 0.4s;
+    }
+
+    &.round {
+      border-radius: 500px;
+
+      &:before {
+        border-radius: 50%;
+      }
+    }
+  }
 }
-/* Hide default HTML checkbox */
-.switch input {
-  display: none;
-}
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
-}
-input:checked + .slider {
-  background-color: #2196f3;
-}
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
-}
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-.slider.round:before {
-  border-radius: 50%;
-}
+
+
 </style>
