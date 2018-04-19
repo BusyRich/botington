@@ -1,6 +1,6 @@
 <template>
-  <label class="switch">
-    <input type="checkbox" @click="$emit('toggled')" :checked="value">
+  <label class="switch toggle">
+    <input type="checkbox" @click="toggled" :checked="value">
     <span :class="'slider round' + (color ? ' ' + color : '')"></span>
   </label>
 </template>
@@ -25,6 +25,14 @@ module.exports = {
     if(this.size && this.size > 0) {
       this.$el.setAttribute('style', 
         `width:${this.size}px;height:${this.size * 0.65}px;`);
+    }
+  },
+  methods: {
+    toggled() {
+      this.$emit('toggled', this);
+    },
+    set(checked) {
+      this.$el.querySelector('input').checked = checked;
     }
   }
 };
