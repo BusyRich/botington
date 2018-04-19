@@ -1,8 +1,6 @@
 module.exports = plugin => {
   return plugin.bind({
     initialize() {
-      this.settings = plugin.settings;
-
       this.bot.on('message', data => {
         //Check for plugin enabled
         if (!this.enabled) {

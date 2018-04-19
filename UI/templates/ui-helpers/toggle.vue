@@ -1,6 +1,6 @@
 <template>
   <label class="switch">
-    <input type="checkbox" @click="onClick" v-model="toggled">
+    <input type="checkbox" @click="$emit('toggled')" :checked="value">
     <span :class="'slider round' + (color ? ' ' + color : '')"></span>
   </label>
 </template>
@@ -8,13 +8,9 @@
 <script>
 module.exports = {
   props: {
-    onClick: {
-      type: Function,
-      required: true
-    },
-    toggled: {
+    value: {
       type: Boolean,
-      required: false
+      required: true
     },
     size: {
       type: Number,
@@ -37,7 +33,6 @@ module.exports = {
 <style lang="scss">
 @import 'UI/scss/_globals';
 $width: 42px;
-$bigWidth: $width * 1.5;
 
 .switch {
   position: relative;
@@ -69,7 +64,6 @@ $bigWidth: $width * 1.5;
     }
   }
 
-    /* The slider */
   .slider {
     position: absolute;
     cursor: pointer;
