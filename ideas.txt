@@ -13,3 +13,4 @@ Message persistance per session? Session or local storage?
 Default plugin UI that can be used to generate the UI automatically 
   based on the types of settings in the plugin settings
 Console output plugin - for hc dev work
+Simple music player. Nothing fancy but useful for displaying now playing.
