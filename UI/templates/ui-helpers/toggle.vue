@@ -1,7 +1,7 @@
 <template>
   <label class="switch">
     <input type="checkbox" @click="onClick" v-model="toggled">
-    <span class="slider round"></span>
+    <span :class="'slider round' + (color ? ' ' + color : '')"></span>
   </label>
 </template>
 
@@ -18,6 +18,10 @@ module.exports = {
     },
     size: {
       type: Number,
+      required: false
+    },
+    color: {
+      type: String,
       required: false
     }
   },
@@ -46,6 +50,18 @@ $bigWidth: $width * 1.5;
 
     &:checked + .slider {
       background-color: $colors-green;
+
+      &.purple {
+        background-color: $colors-purple;
+      }
+
+      &.blue {
+        background-color: $colors-blue;
+      }
+
+      &.black {
+        background-color: $colors-dark;
+      }
     }
 
     &:checked + .slider:before {
