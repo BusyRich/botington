@@ -8,9 +8,7 @@
           <i v-else class="fas fa-plug"></i>
         </span>
         <span class="plugin-toggle">
-          <a @click="togglePlugin(plugin.name)">
-            <i :class="'fas fa-toggle-' + (plugin.enabled ? 'on' : 'off')"></i>
-          </a>
+          <toggle @toggled="togglePlugin($event, plugin.name)" :value="plugin.enabled"/>
         </span>
         <h3>{{ plugin.displayName }} v{{ plugin.version }}</h3>
         <a v-if="plugin.ui.container" class="settings-link" :onclick="'switchTab(\'#' + plugin.ui.container + '\')'">
@@ -46,10 +44,11 @@ module.exports = {
         ui: Object.assign({}, plugin.config.ui)
       });
     },
-    togglePlugin(plugin) {
+    togglePlugin(toggle, plugin) {
       let p = bot.plugins[plugin],
           cb = (error) => {
             if(error) {
+              toggle.set(p.enabled);
               return console.log(error);
             }
             
