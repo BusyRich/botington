@@ -73,7 +73,7 @@ module.exports = {
 
 <style lang="scss" scoped>
   #chatters {
-    width: 25%;
+    flex-basis: 350px;
     list-style: none;
     padding: 5px 0;
     border-left: 1px solid #eaeaea;

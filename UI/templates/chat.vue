@@ -163,7 +163,6 @@ module.exports = {
 @import 'UI/scss/_globals';
 
 #chatWrapper {
-  width: 75%;
   overflow: auto;
 
   #chatMessages {

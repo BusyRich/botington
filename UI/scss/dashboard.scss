@@ -1,3 +1,5 @@
+@import 'UI/scss/_globals';
+
 * {
   margin: 0;
   padding: 0;
@@ -6,6 +8,31 @@
 
 html, body {
   height: 100%;
+  letter-spacing: 1px;
+}
+
+input, textarea {
+  padding: 10px;
+  font-size: 1.1em;
+  line-height: 2em;
+  vertical-align: middle;
+  border: 2px solid $colors-light;
+  border-radius: 10px;
+}
+
+input {
+  height: 2em;
+}
+
+textarea {
+  letter-spacing: 0;
+}
+
+input[type="number"] {
+  width: 3em;
+  line-height: 2.5em;
+  padding-right: 0;
+  text-align: right;
 }
 
 .clear {
@@ -18,34 +45,50 @@ html, body {
   height: 100%;
 }
 
+.row {
+  display: flex;
+
+  &.stacked,
+  &.stacked ~ .row {
+    margin-bottom: 20px;
+  }
+  
+  > * {
+    box-sizing: border-box;
+    flex: 0 1 100%;
+  }
+  
+  &.two-col > * {
+    flex-basis: 50%;
+  }
+  
+  &.three-col > * {
+    flex-basis: 33.33%;
+  }
+}
+
 #app {
   > div {
     height: 100%;
   }
 
-  color: #3F3F3F;
+  color: $colors-dark;
   font-family: Courier, Arial;
-  background-color: #eaeaea;
-}
+  background-color: $colors-light;
 
-#content {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  margin-left: 48px;
-  //Needed so the content fits in the bounds
-  //with the margin set.
-  padding-right: 48px;
-  overflow: hidden;
-
-  > div {
-    height: 100%;
+  #content {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-left: 48px;
+    overflow: hidden;
+  
+    > div {
+      height: 100%;
+    }
   }
 }
 
-#monitor {  
-  > * {
-    float: left;
-  }
-}
+
+

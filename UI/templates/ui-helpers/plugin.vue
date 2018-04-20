@@ -37,6 +37,7 @@ module.exports = {
   .plugin-ui-content {
     flex: 1;
     overflow-x: auto;
+    padding: 10px;
   }
 }
 </style>
