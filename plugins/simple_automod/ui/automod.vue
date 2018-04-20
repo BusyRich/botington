@@ -1,40 +1,19 @@
 <template>
   <plugin v-model="plugin">
     <div class="row stacked">
-      <div>
-        <h2>Ignore Streamer</h2>
-        <setting-toggle :plugin="this" setting="ignore-broadcaster" />
-      </div>
-      <div>
-        <h2>Ignore Moderators</h2>
-        <setting-toggle :plugin="this" setting="ignore-mods"/>
-      </div>
+      <setting-toggle :plugin="this" setting="ignore-broadcaster" label="Ignore Streamer" />
+      <setting-toggle :plugin="this" setting="ignore-mods" label="Ignore Moderators"/>
     </div>
     <div class="row">
-      <div>
-        <h2>Increasing Timeouts</h2>
-        <setting-toggle :plugin="this" setting="progressive-timeouts"/>
-      </div>
-      <div>
-        <h2>Block URLs</h2>
-        <setting-toggle :plugin="this" setting="remove-urls"/>
-      </div>
+      <setting-toggle :plugin="this" setting="progressive-timeouts" label="Increasing Timeouts"/>
+      <setting-toggle :plugin="this" setting="remove-urls" label="Block URLs"/>
     </div>
     <div class="row">
-      <div>
-        <h2>Timeout Multiplier</h2>
-        <setting-number :plugin="this" setting="progressive-timeout-length" min="0"/>
-      </div>
-      <div>
-        <h2>Timeout Threshold</h2>
-        <setting-number :plugin="this" setting="progressive-timeout-threshold" min="0"/>
-      </div>
+      <setting-number :plugin="this" setting="progressive-timeout-length" label="Timeout Multiplier" min="0"/>
+      <setting-number :plugin="this" setting="progressive-timeout-threshold" label="Timeout Threshold" min="0"/>
     </div>
     <div class="row">
-      <div>
-        <h2>Restricted Words</h2>
-        <setting-multilist :plugin="this" setting="restricted-words"/>
-      </div>
+      <setting-multilist :plugin="this" setting="restricted-words" label="Restricted Words"/>
     </div>
   </plugin>
 </template>

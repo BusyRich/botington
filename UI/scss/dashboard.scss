@@ -11,6 +11,10 @@ html, body {
   letter-spacing: 1px;
 }
 
+a {
+  transition: color 0.25s;
+}
+
 input, textarea {
   padding: 10px;
   font-size: 1.1em;
@@ -18,6 +22,12 @@ input, textarea {
   vertical-align: middle;
   border: 2px solid $colors-light;
   border-radius: 10px;
+  transition: border 0.5s;
+
+  &:focus {
+    outline: none;
+    border-color: $colors-dark;
+  }
 }
 
 input {
