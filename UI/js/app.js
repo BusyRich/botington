@@ -1,26 +1,29 @@
+window._ = require('lodash');
+window.moment = require('moment');
+window.Botington = {};
 window.eWindow = require('electron').remote.getCurrentWindow();
 window.bot = eWindow.bot;
 window.eBus = new Vue();
-window.tabs = [{
-  name: 'chat',
-  icon: 'fas fa-comment-alt',
-  label: 'Chat Monitor',
-  element: '#monitor',
-},{
-  name: 'plugins',
-  icon: 'fas fa-plug',
-  label: 'Plugins',
-  element: '#plugins'
-}];
-window.uiHelpers = {
+window.tabs = [];
+Botington.ui = {
+  components: {},
   mixins: {
     plugin: require(__dirname + '/js/plugin.mixin')
-  }
+  },
+  tabs: [{
+    name: 'chat',
+    icon: 'fas fa-comment-alt',
+    label: 'Chat Monitor',
+    element: '#monitor',
+  },{
+    name: 'plugins',
+    icon: 'fas fa-plug',
+    label: 'Plugins',
+    element: '#plugins'
+  }]
 };
-window._ = require('lodash');
-window.moment = require('moment');
 
-window.switchTab = function(tabName) {
+Botington.ui.switchTab = function(tabName) {
   let scrollTo = null;
 
   //tab names can be either id selectors or
@@ -30,9 +33,9 @@ window.switchTab = function(tabName) {
   if(tabName.indexOf('#') === 0) {
     scrollTo = $(tabName).offset();
   } else {
-    for(let t = 0; t < tabs.length; t++) {
-      if(tabs[t].name === tabName) {
-        scrollTo = $(tabs[t].element).offset();
+    for(let t = 0; t < Botington.ui.tabs.length; t++) {
+      if(Botington.ui.tabs[t].name === tabName) {
+        scrollTo = $(Botington.ui.tabs[t].element).offset();
         break;
       }
     }
@@ -45,8 +48,8 @@ window.switchTab = function(tabName) {
 };
 
 //These are the main Vue components used in the base UI
-import menu from './templates/menu.vue';
-Vue.component('side-menu', menu);
+import nav from './templates/nav.vue';
+Vue.component('side-nav', nav);
 
 import pluginList from './templates/plugins.vue';
 Vue.component('plugins', pluginList);
@@ -65,8 +68,8 @@ let fs = require('fs'),
 for(let h = 0; h < helperFiles.length; h++) {
   let name = helperFiles[h].slice(0, -4);
 
-  uiHelpers[name] = require(helpersFolder + '/' + helperFiles[h]);
-  Vue.component(name,uiHelpers[name]);
+  Botington.ui.components[name] = require(helpersFolder + '/' + helperFiles[h]);
+  Vue.component(name, Botington.ui.components[name]);
 }
 
 //Making these seperate functions is required
@@ -90,8 +93,8 @@ const onReady = () => {
       }
     }
 
-    if(bot.plugins[p].config['side-nav'] === true) {
-      tabs.push({
+    if(bot.plugins[p].addNav === true) {
+      Botington.ui.tabs.push({
         name: plugin.name,
         icon: plugin.config.icon,
         label: plugin.displayName,
@@ -103,6 +106,8 @@ const onReady = () => {
   window.vm = new Vue({
     el: '#app'
   });
+
+  Botington.ui.nav = vm.$refs.sideNav;
 };
 
 $(document).ready(() => {

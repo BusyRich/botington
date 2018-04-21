@@ -20,7 +20,7 @@
 
 <script>
 module.exports = {
-  mixins: [uiHelpers.mixins.plugin],
+  mixins: [Botington.ui.mixins.plugin],
   data() {
     return {
       name: "simple-automod"

@@ -5,14 +5,17 @@
       <div v-for="rowIndex in Math.ceil(names.length / 2)" :key="rowIndex" class="row two-col">
         <div v-for="plugin in getPlugins((rowIndex - 1) * 2, 2)" :key="plugin" class="plugin">
           <span class="plugin-icon">
-            <i v-if="plugin.icon" :class="plugin.icon"></i>
-            <i v-else class="fas fa-plug"></i>
+            <i :class="plugin.icon"></i>
           </span>
           <span class="plugin-toggle">
             <toggle @toggled="togglePlugin($event, plugin.name)" :value="plugin.enabled"/>
           </span>
           <h3>{{ plugin.displayName }} v{{ plugin.version }}</h3>
-          <a v-if="plugin.ui.container" class="settings-link" :onclick="'switchTab(\'#' + plugin.ui.container + '\')'">
+          <div class="add-sidebar">
+            <span>Add to Sidebar?</span>
+            <toggle @toggled="toggleSideNav($event, plugin.name)" :value="plugin.addNav" size="30"/>
+          </div>
+          <a v-if="plugin.ui.container" class="settings-link" :onclick="'Botington.ui.switchTab(\'#' + plugin.ui.container + '\')'">
             <span>Settings <i class="fas fa-caret-right fa-lg"></i></span>
           </a>
         </div>
@@ -55,20 +58,19 @@ module.exports = {
         name: plugin.name,
         displayName: plugin.displayName,
         version: plugin.config.version,
-        icon: plugin.config.icon,
+        icon: plugin.icon,
         enabled: plugin.enabled,
+        addNav: plugin.addNav,
         ui: Object.assign({}, plugin.config.ui)
       });
     },
-    togglePlugin(toggle, plugin) {
-      let p = bot.plugins[plugin],
+    togglePlugin(toggle, pluginName) {
+      let p = bot.plugins[pluginName],
           cb = (error) => {
             if(error) {
               toggle.set(p.enabled);
               return console.log(error);
             }
-            
-            this.updatePlugin(p);
           };
 
       if(p.enabled) {
@@ -76,6 +78,34 @@ module.exports = {
       } else {
         p.enable(cb);
       }
+    },
+    setSideNav(plugin) {
+      let pUI = plugin.config.ui || {};
+
+      if(plugin.addNav) {
+        Botington.ui.nav.addTab({
+          name: plugin.name,
+          icon: plugin.icon,
+          label: plugin.displayName,
+          element: `#${pUI.container}`,
+        });
+      } else {
+        Botington.ui.nav.removeTab(plugin.name);
+      }
+    },
+    toggleSideNav(toggle, pluginName) {
+      let p = bot.plugins[pluginName];
+      
+      p.addNav = !p.addNav;
+
+      p.update((error) => {
+        if(error) {
+          toggle.set(p.addNav);
+          return console.log(error);
+        }
+
+        this.setSideNav(p);
+      });
     }
   }
 }
@@ -100,6 +130,11 @@ module.exports = {
       line-height: 70px;
       font-size: 50px;
       text-align: center;
+    }
+
+    .add-sidebar .switch {
+      margin-left: 10px;
+      vertical-align: middle;
     }
 
     .plugin-toggle {

@@ -33,7 +33,7 @@
 
 <script>
 module.exports = {
-  mixins: [uiHelpers.mixins.plugin],
+  mixins: [Botington.ui.mixins.plugin],
   created() {
     for(cmd in this.plugin.commands) {
       this.addCommand(this.plugin.commands[cmd]);
