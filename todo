@@ -6,3 +6,4 @@ clean up UI JS (better naming)
 allow sending messages from the chat monitor
 bettering logging system
 unit testing (duh)
+convert plugin deps list to node's dep list format, maybe provide repo and version?
