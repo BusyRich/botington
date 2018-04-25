@@ -21,16 +21,17 @@
 */
 
 module.exports = function (name, gender, race, classification, description) {
-    this.name = name;
-    this.gender = gender;
-    this.race = race;
-    this.classification = classification;
-    this.description = description;
-    this.creationDate = new Date();
-    this.age = 0;
-    this.gear = generateGear(race, classification);
-    this.stats = generateStats();
-    return this;
+    var obj = {}
+    obj.name = name;
+    obj.gender = gender;
+    obj.race = race;
+    obj.classification = classification;
+    obj.description = description;
+    obj.creationDate = new Date();
+    obj.age = 0;
+    obj.gear = generateGear(classification);
+    obj.stats = generateStats();
+    return obj;
 }
 
 function generateStats() {

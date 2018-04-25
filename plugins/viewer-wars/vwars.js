@@ -30,7 +30,12 @@ module.exports = plugin => {
             this.bot.pm(cmd.username, "Please provide all inputs in the format vwars createCharacter name gender race classification description ");
           } else {
             let newChar = Character(n, g, r, c, d);
-            this.db
+            newChar.username = cmd.username;
+            console.log(newChar);
+            this.db.getOrCreate('vwars-characters', { username: cmd.username }, newChar, function (data, err) {
+              if (err) throw err;
+              console.log(data);
+            })
           }
           break;
         default:
