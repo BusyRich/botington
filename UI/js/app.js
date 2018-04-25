@@ -4,7 +4,6 @@ window.Botington = {};
 window.eWindow = require('electron').remote.getCurrentWindow();
 window.bot = eWindow.bot;
 window.eBus = new Vue();
-window.tabs = [];
 Botington.ui = {
   components: {},
   mixins: {
