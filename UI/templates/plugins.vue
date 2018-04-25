@@ -11,7 +11,7 @@
             <toggle @toggled="togglePlugin($event, plugin.name)" :value="plugin.enabled"/>
           </span>
           <h3>{{ plugin.displayName }} v{{ plugin.version }}</h3>
-          <div class="add-sidebar">
+          <div v-if="plugin.ui.container" class="add-sidebar">
             <span>Add to Sidebar?</span>
             <toggle @toggled="toggleSideNav($event, plugin.name)" :value="plugin.addNav" size="30"/>
           </div>

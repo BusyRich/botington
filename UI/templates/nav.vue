@@ -29,9 +29,18 @@ module.exports = {
   methods: {
     addTab(tab) {
       this.$set(this.tabs, tab.name, tab);
+
+      if(Botington.ui.tabs.findIndex(t => t.name === tab.name) < 0) {
+        Botington.ui.tabs.push(tab);
+      }
     },
     removeTab(tabName) {
       this.$delete(this.tabs, tabName);
+
+      let t = Botington.ui.tabs.findIndex(t => t.name === tabName);
+      if(t > -1) {
+        Botington.ui.tabs.splice(t, 1);
+      }
     }
   }
 }
