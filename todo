@@ -10,3 +10,4 @@ convert plugin deps list to node's dep list format, maybe provide repo and versi
 reorg mongo access to be a generalized data connector that can be use as a template to create other connectors.
 add modal for errors and info
 add hovers to important UI elements
+add simple server that has some built in routing and endpoints for providing communication with external sources. Extensiable by plugins of course.
