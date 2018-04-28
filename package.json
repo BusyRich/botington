@@ -1,6 +1,6 @@
 {
   "name": "botington",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Chatbot designed to be easy to use and ",
   "main": "lib/bot.js",
   "scripts": {
