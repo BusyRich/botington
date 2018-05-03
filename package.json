@@ -9,9 +9,9 @@
   "author": "Richard Key <rich@busyrich.com>",
   "license": "ISC",
   "dependencies": {
+    "botbase": "git+ssh://git@bitbucket.org/botingtongroup/botbase.git",
     "lodash": "^4.17.5",
     "moment": "^2.22.0",
-    "mongodb": "^3.0.4",
-    "request": "^2.85.0"
+    "mongodb": "^3.0.4"
   }
 }
