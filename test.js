@@ -2,7 +2,7 @@ const path = require('path'),
       url = require('url'),
       Botington = require(__dirname + '/lib/' + 'bot');
 
-const bot = new Botington(path.join(__dirname, '/../'));
+const bot = Botington(path.join(__dirname, '/../'));
 
 bot.on('channel', function(data) {
   console.log('Connected to Channel #%s', data.channel);
