@@ -37,8 +37,4 @@ bot.on('ready', () => {
 bot.on('refresh', () => {
 });
 
-bot.registerCommand('butt', function(meta, ...args) {
-  bot.pm(meta.username, `I just wanted to let you know...butt, with ${args.length} arguments.`);
-});
-
 bot.initialize();
