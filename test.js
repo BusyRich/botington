@@ -37,4 +37,8 @@ bot.on('ready', () => {
 bot.on('refresh', () => {
 });
 
+bot.on('ban', data => {
+  console.log('BAN!', data);
+});
+
 bot.initialize();
