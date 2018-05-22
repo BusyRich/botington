@@ -1,13 +1,10 @@
 Examine hidden Scrollbar in Plugin Base UI (Mac only?)
 UI for built in plugins
-in-chat notifications for commands
-listen to two different IRC connections to catpure both regular and bot messgaes
 clean up UI JS (better naming)
 allow sending messages from the chat monitor
 bettering logging system
 unit testing (duh)
 convert plugin deps list to node's dep list format, maybe provide repo and version?
-reorg mongo access to be a generalized data connector that can be use as a template to create other connectors.
 add modal for errors and info
 add hovers to important UI elements
 add simple server that has some built in routing and endpoints for providing communication with external sources. Extensiable by plugins of course.
