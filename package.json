@@ -4,7 +4,7 @@
   "description": "Chatbot designed to be easy to use and ",
   "main": "lib/bot.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jasmine"
   },
   "author": "Richard Key <rich@busyrich.com>",
   "license": "ISC",
