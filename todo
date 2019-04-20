@@ -1,0 +1,10 @@
+- Bot
+  - Chat Connections
+   - Discord via DiscordJS?
+  - Systems
+    - Users (doneish)
+    - Server w/ Websockers
+    - Overlay Manager
+    - Timer
+  - Plugins
+    - Plugin Categories

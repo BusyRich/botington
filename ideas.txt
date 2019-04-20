@@ -10,6 +10,7 @@ Org Outline
   + Plugin Management
   + Timers
 
+Random item chooser - Set up lists and allow random entries to be picked inside formatted strings
 announcements - timer-based reoccuring posts to chat
 slot machine
 time - date/time and timer and countdown

@@ -68,3 +68,7 @@ __.compilerc
 
 .DS_Store
 
+*.db
+
+config.db.json
+
